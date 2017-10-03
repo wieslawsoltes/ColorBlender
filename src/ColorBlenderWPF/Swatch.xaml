@@ -1,0 +1,40 @@
+﻿<!-- Copyright (c) Wiesław Šoltés. All rights reserved. -->
+<!-- Licensed under the MIT license. See LICENSE file in the project root for full license information. -->
+<UserControl x:Class="ColorBlenderWPF.Swatch"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:ColorBlenderWPF">
+    <UserControl.Resources>
+        <local:HtmlColorConverter x:Key="HtmlColorConverterKey" />
+    </UserControl.Resources>
+    <Grid x:Name="swatch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Rectangle x:Name="col" Cursor="Hand" Fill="Gray" Grid.Column="0" Grid.Row="0" Margin="3,3,3,3" />
+        <TextBox x:Name="HTML" Grid.Column="0" Grid.Row="1" Margin="3,1,3,3" TextAlignment="Center" IsReadOnly="True" >
+            <TextBox.Text>
+                <MultiBinding Converter="{StaticResource HtmlColorConverterKey}">
+                    <Binding ElementName="col" Path="Fill.Color.R" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" />
+                    <Binding ElementName="col" Path="Fill.Color.G" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" />
+                    <Binding ElementName="col" Path="Fill.Color.B" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" />
+                </MultiBinding>
+            </TextBox.Text>
+        </TextBox>
+        <Grid Grid.Column="0" Grid.Row="2" Margin="3,1,3,4" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="R" Text="{Binding ElementName=col, Path=Fill.Color.R, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="0" TextAlignment="Center" IsReadOnly="True" />
+            <TextBox x:Name="G" Text="{Binding ElementName=col, Path=Fill.Color.G, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" TextAlignment="Center" IsReadOnly="True" />
+            <TextBox x:Name="B" Text="{Binding ElementName=col, Path=Fill.Color.B, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" TextAlignment="Center" IsReadOnly="True" />
+        </Grid>
+    </Grid>
+</UserControl>
