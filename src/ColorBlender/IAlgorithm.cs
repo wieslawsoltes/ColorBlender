@@ -3,13 +3,8 @@
 
 namespace ColorBlender
 {
-    public class Blend
+    public interface IAlgorithm
     {
-        public HSV[] Colors { get; set; }
-
-        public Blend()
-        {
-            Colors = new HSV[6];
-        }
+        Blend Match(HSV hsv);
     }
 }
