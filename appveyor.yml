@@ -9,4 +9,3 @@ before_build:
 build:
   project: ColorBlender.sln
   verbosity: minimal
-test: off
