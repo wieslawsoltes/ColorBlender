@@ -6,11 +6,13 @@ namespace ColorBlender
 {
     public class RGB
     {
-        public double R;
-        public double G;
-        public double B;
+        public double R { get; set; }
+        public double G { get; set; }
+        public double B { get; set; }
 
-        public RGB() { }
+        public RGB()
+        {
+        }
 
         public RGB(double r, double g, double b)
         {

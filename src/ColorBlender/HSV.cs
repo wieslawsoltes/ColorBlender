@@ -6,11 +6,13 @@ namespace ColorBlender
 {
     public class HSV
     {
-        public double H;
-        public double S;
-        public double V;
+        public double H { get; set; }
+        public double S { get; set; }
+        public double V { get; set; }
 
-        public HSV() { }
+        public HSV()
+        {
+        }
 
         public HSV(double h, double s, double v)
         {
