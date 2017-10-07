@@ -1,6 +1,8 @@
 # ColorBlender
 
 [![Build status](https://ci.appveyor.com/api/projects/status/79btr6li6w4blngf/branch/master?svg=true)](https://ci.appveyor.com/project/wieslawsoltes/colorblender/branch/master)
+[![Build Status](https://travis-ci.org/wieslawsoltes/ColorBlender.svg?branch=master)](https://travis-ci.org/wieslawsoltes/ColorBlender)
+[![CircleCI](https://circleci.com/gh/wieslawsoltes/ColorBlender/tree/master.svg?style=svg)](https://circleci.com/gh/wieslawsoltes/ColorBlender/tree/master)
 
 A .NET library for color matching and palette design.
 
