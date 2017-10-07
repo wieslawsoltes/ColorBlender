@@ -1,4 +1,4 @@
-// Copyright (c) Wies≥aw äoltÈs. All rights reserved.
+Ôªø// Copyright (c) Wies≈Çaw ≈†olt√©s. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 using ColorBlender.Algorithms;
 using Xunit;
