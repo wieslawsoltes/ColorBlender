@@ -4,6 +4,8 @@
 [![Build Status](https://travis-ci.org/wieslawsoltes/ColorBlender.svg?branch=master)](https://travis-ci.org/wieslawsoltes/ColorBlender)
 [![CircleCI](https://circleci.com/gh/wieslawsoltes/ColorBlender/tree/master.svg?style=svg)](https://circleci.com/gh/wieslawsoltes/ColorBlender/tree/master)
 
+[![NuGet](https://img.shields.io/nuget/v/ColorBlender.svg)](https://www.nuget.org/packages/ColorBlender)
+
 A .NET library for color matching and palette design.
 
 ## About
