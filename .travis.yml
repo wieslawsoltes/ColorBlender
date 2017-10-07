@@ -1,0 +1,16 @@
+language: csharp
+os: linux
+dist: trusty
+env:
+  global:
+    - DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
+    - DOTNET_CLI_TELEMETRY_OPTOUT=1
+sudo: required
+mono:
+  - latest
+dotnet: 2.0.0
+script:
+  - dotnet restore src/ColorBlender
+  - dotnet build src/ColorBlender/ColorBlender.csproj -f netstandard2.0
+  - dotnet restore samples/ColorBlenderAvalonia
+  - dotnet build samples/ColorBlenderAvalonia/ColorBlenderAvalonia.csproj -f netcoreapp2.0
