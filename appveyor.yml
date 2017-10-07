@@ -1,0 +1,8 @@
+version: '{build}'
+image: Visual Studio 2017
+configuration: Release
+platform: Any CPU
+build:
+  project: ColorBlender.sln
+  verbosity: minimal
+test: off

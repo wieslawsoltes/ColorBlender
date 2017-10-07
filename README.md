@@ -1,5 +1,7 @@
 # ColorBlender
 
+[![Build status](https://ci.appveyor.com/api/projects/status/79btr6li6w4blngf/branch/master?svg=true)](https://ci.appveyor.com/project/wieslawsoltes/colorblender/branch/master)
+
 A .NET library for color matching and palette design.
 
 ## About
