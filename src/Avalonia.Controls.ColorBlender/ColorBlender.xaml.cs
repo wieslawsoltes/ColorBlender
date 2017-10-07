@@ -49,7 +49,7 @@ namespace Avalonia.Controls.ColorBlender
 
         private RGB rgb;
         private HSV hsv;
-        private Blend z;
+        private Blend blend;
         private RGB[] vRGB = new RGB[7];
         private RGB[] vHSV = new RGB[9];
         private bool updatingSliders = false;
@@ -80,7 +80,7 @@ namespace Avalonia.Controls.ColorBlender
 
             hsv = new HSV(213, 46, 49);
             rgb = new RGB(hsv);
-            z = CurrentAlgorithm.Match(hsv);
+            blend = CurrentAlgorithm.Match(hsv);
 
             UpdateSliderRGB();
             UpdateSliderHSV();
@@ -166,7 +166,7 @@ namespace Avalonia.Controls.ColorBlender
 
         private void Algorithm_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            z = CurrentAlgorithm.Match(hsv);
+            blend = CurrentAlgorithm.Match(hsv);
             UpdateSwatches();
             UpdateVariations();
         }
@@ -202,19 +202,19 @@ namespace Avalonia.Controls.ColorBlender
             UpdateSliderHSV();
             updatingSliders = false;
 
-            z = CurrentAlgorithm.Match(hsv);
+            blend = CurrentAlgorithm.Match(hsv);
             UpdateSwatches();
             UpdateVariations();
         }
 
         private void UpdateSwatches()
         {
-            swatch1.col.Fill = new SolidColorBrush(ColorExtensions.ToColor(z.Colors[0]));
-            swatch2.col.Fill = new SolidColorBrush(ColorExtensions.ToColor(z.Colors[1]));
-            swatch3.col.Fill = new SolidColorBrush(ColorExtensions.ToColor(z.Colors[2]));
-            swatch4.col.Fill = new SolidColorBrush(ColorExtensions.ToColor(z.Colors[3]));
-            swatch5.col.Fill = new SolidColorBrush(ColorExtensions.ToColor(z.Colors[4]));
-            swatch6.col.Fill = new SolidColorBrush(ColorExtensions.ToColor(z.Colors[5]));
+            swatch1.col.Fill = new SolidColorBrush(ColorExtensions.ToColor(blend.Colors[0]));
+            swatch2.col.Fill = new SolidColorBrush(ColorExtensions.ToColor(blend.Colors[1]));
+            swatch3.col.Fill = new SolidColorBrush(ColorExtensions.ToColor(blend.Colors[2]));
+            swatch4.col.Fill = new SolidColorBrush(ColorExtensions.ToColor(blend.Colors[3]));
+            swatch5.col.Fill = new SolidColorBrush(ColorExtensions.ToColor(blend.Colors[4]));
+            swatch6.col.Fill = new SolidColorBrush(ColorExtensions.ToColor(blend.Colors[5]));
         }
 
         private void UpdateSliderRGB()
@@ -325,7 +325,7 @@ namespace Avalonia.Controls.ColorBlender
             UpdateSliderHSV();
             updatingSliders = false;
 
-            z = CurrentAlgorithm.Match(hsv);
+            blend = CurrentAlgorithm.Match(hsv);
             UpdateSwatches();
             UpdateVariations();
         }
@@ -342,7 +342,7 @@ namespace Avalonia.Controls.ColorBlender
             UpdateSliderRGB();
             updatingSliders = false;
 
-            z = CurrentAlgorithm.Match(hsv);
+            blend = CurrentAlgorithm.Match(hsv);
             UpdateSwatches();
             UpdateVariations();
         }
