@@ -45,6 +45,42 @@ You can install the package like this:
 
 `Install-Package ColorBlender`
 
+## Sample
+
+```C#
+using System;
+using ColorBlender;
+using ColorBlender.Algorithms;
+
+namespace ColorBlenderConsole
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Classic");
+            Match(new Classic(), new HSV(213, 46, 49));
+            Console.WriteLine("ColorExplorer");
+            Match(new ColorExplorer(), new HSV(213, 46, 49));
+            Console.ReadKey();
+        }
+
+        private static void Match(IAlgorithm algorithm, HSV hsv)
+        {
+            var blend = algorithm.Match(hsv);
+            foreach (var color in blend.Colors)
+            {
+                var rgb = color.ToRGB();
+                var html = string.Format(
+                    "#{0:X2}{1:X2}{2:X2}",
+                    (byte)rgb.R, (byte)rgb.G, (byte)rgb.B);
+                Console.WriteLine(html);
+            }
+        }
+    }
+}
+```
+
 ## Screenshots
 
 ![](images/avalonia.png)
