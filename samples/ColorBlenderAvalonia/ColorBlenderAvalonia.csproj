@@ -43,7 +43,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ColorBlender\ColorBlender.csproj" />
+    <ProjectReference Include="..\..\src\ColorBlender\ColorBlender.csproj" />
   </ItemGroup>
 
 </Project>

@@ -88,7 +88,7 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ColorBlender\ColorBlender.csproj">
+    <ProjectReference Include="..\..\src\ColorBlender\ColorBlender.csproj">
       <Project>{b52c44ba-d099-42e8-94a7-5234e08480fd}</Project>
       <Name>ColorBlender</Name>
     </ProjectReference>
