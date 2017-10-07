@@ -33,6 +33,16 @@ calculations are based on hue, saturation and value of the working color.
 The hue spectrum is divided into sections, are the matching colors are
 calculated differently depending on the hue of the color.
 
+## NuGet
+
+ColorBlender is delivered as a NuGet package.
+
+You can find the package [here](https://www.nuget.org/packages/ColorBlender/).
+
+You can install the package like this:
+
+`Install-Package ColorBlender`
+
 ## Screenshots
 
 ![](images/avalonia.png)
