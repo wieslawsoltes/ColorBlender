@@ -18,9 +18,9 @@ namespace ColorBlenderWPF
             return ToRGB(c).ToHSV();
         }
 
-        public static Color ToColor(this HSV hs)
+        public static Color ToColor(this HSV hsv)
         {
-            return ToColor(hs.ToRGB());
+            return ToColor(hsv.ToRGB());
         }
 
         public static Color ToColor(this RGB rgb)
@@ -29,6 +29,16 @@ namespace ColorBlenderWPF
                 (byte)Math.Round(rgb.R),
                 (byte)Math.Round(rgb.G),
                 (byte)Math.Round(rgb.B));
+        }
+
+        public static SolidColorBrush ToSolidColorBrush(this RGB rgb)
+        {
+            return new SolidColorBrush(ToColor(rgb));
+        }
+
+        public static SolidColorBrush ToSolidColorBrush(this HSV hsv)
+        {
+            return new SolidColorBrush(ToColor(hsv));
         }
     }
 }
