@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using Avalonia.Markup;
 
-namespace ColorBlenderAvalonia
+namespace Avalonia.Controls.ColorBlender
 {
     public class HtmlColorConverter : IMultiValueConverter
     {

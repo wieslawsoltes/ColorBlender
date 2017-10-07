@@ -1,9 +1,9 @@
 ﻿<!-- Copyright (c) Wiesław Šoltés. All rights reserved. -->
 <!-- Licensed under the MIT license. See LICENSE file in the project root for full license information. -->
-<UserControl x:Class="ColorBlenderAvalonia.Swatch"
+<UserControl x:Class="Avalonia.Controls.ColorBlender.Swatch"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:ColorBlenderAvalonia;assembly=ColorBlenderAvalonia">
+             xmlns:local="clr-namespace:Avalonia.Controls.ColorBlender;assembly=Avalonia.Controls.ColorBlender">
     <Grid x:Name="swatch" RowDefinitions="*,Auto,Auto" ColumnDefinitions="*">
         <Rectangle x:Name="col" Cursor="Hand" Fill="Gray" Grid.Column="0" Grid.Row="0" Margin="3,3,3,3" />
         <TextBox x:Name="HTML" Grid.Column="0" Grid.Row="1" Margin="3,1,3,3" TextAlignment="Center" IsReadOnly="True" >

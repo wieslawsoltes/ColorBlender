@@ -4,7 +4,7 @@ using System;
 using Avalonia.Media;
 using ColorBlender;
 
-namespace ColorBlenderAvalonia
+namespace Avalonia.Controls.ColorBlender
 {
     public static class ColorExtensions
     {

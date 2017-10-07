@@ -4,7 +4,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
 using Avalonia.Markup.Xaml;
 
-namespace ColorBlenderAvalonia
+namespace Avalonia.Controls.ColorBlender
 {
     public partial class Swatch : UserControl
     {
