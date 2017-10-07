@@ -7,7 +7,7 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using ColorBlender;
 
-namespace ColorBlenderWPF
+namespace ColorBlenderWPF.Controls
 {
     public partial class ColorBlender : UserControl
     {

@@ -4,7 +4,7 @@ using System;
 using System.Globalization;
 using System.Windows.Data;
 
-namespace ColorBlenderWPF
+namespace ColorBlenderWPF.Controls
 {
     public class HtmlColorConverter : IMultiValueConverter
     {

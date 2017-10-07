@@ -3,7 +3,7 @@
 <Window x:Class="ColorBlenderWPF.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:cb="clr-namespace:ColorBlenderWPF"
+        xmlns:cb="clr-namespace:ColorBlenderWPF.Controls"
         Title="ColorBlender .NET"
         Width="800" Height="480" 
         Background="White" 

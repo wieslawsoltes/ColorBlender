@@ -58,10 +58,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Swatch.xaml.cs">
+    <Compile Include="Controls\Swatch.xaml.cs">
       <DependentUpon>Swatch.xaml</DependentUpon>
     </Compile>
-    <Page Include="ColorBlender.xaml">
+    <Page Include="Controls\ColorBlender.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="MainWindow.xaml">
@@ -72,16 +72,16 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ColorBlender.xaml.cs">
+    <Compile Include="Controls\ColorBlender.xaml.cs">
       <DependentUpon>ColorBlender.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ColorExtensions.cs" />
-    <Compile Include="HtmlColorConverter.cs" />
+    <Compile Include="Controls\ColorExtensions.cs" />
+    <Compile Include="Controls\HtmlColorConverter.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Swatch.xaml">
+    <Page Include="Controls\Swatch.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

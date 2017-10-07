@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 using System.Windows.Controls;
 
-namespace ColorBlenderWPF
+namespace ColorBlenderWPF.Controls
 {
     public partial class Swatch : UserControl
     {
