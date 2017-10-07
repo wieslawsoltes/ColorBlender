@@ -13,68 +13,68 @@ namespace ColorBlender.Algorithms
             HSV y = new HSV();
             HSV yx = new HSV();
 
-            y.s = hsv.s;
-            y.h = hsv.h;
-            if (hsv.v > 70) { y.v = hsv.v - 30; } else { y.v = hsv.v + 30; };
+            y.S = hsv.S;
+            y.H = hsv.H;
+            if (hsv.V > 70) { y.V = hsv.V - 30; } else { y.V = hsv.V + 30; };
             outp.Colors[1] = new HSV(y);
 
-            if ((hsv.h >= 0) && (hsv.h < 30))
+            if ((hsv.H >= 0) && (hsv.H < 30))
             {
-                yx.h = y.h = hsv.h + 30; yx.s = y.s = hsv.s; y.v = hsv.v;
-                if (hsv.v > 70) { yx.v = hsv.v - 30; } else { yx.v = hsv.v + 30; }
+                yx.H = y.H = hsv.H + 30; yx.S = y.S = hsv.S; y.V = hsv.V;
+                if (hsv.V > 70) { yx.V = hsv.V - 30; } else { yx.V = hsv.V + 30; }
             }
 
-            if ((hsv.h >= 30) && (hsv.h < 60))
+            if ((hsv.H >= 30) && (hsv.H < 60))
             {
-                yx.h = y.h = hsv.h + 150;
-                y.s = MathHelpers.RC(hsv.s - 30, 100);
-                y.v = MathHelpers.RC(hsv.v - 20, 100);
-                yx.s = MathHelpers.RC(hsv.s - 50, 100);
-                yx.v = MathHelpers.RC(hsv.v + 20, 100);
+                yx.H = y.H = hsv.H + 150;
+                y.S = MathHelpers.RC(hsv.S - 30, 100);
+                y.V = MathHelpers.RC(hsv.V - 20, 100);
+                yx.S = MathHelpers.RC(hsv.S - 50, 100);
+                yx.V = MathHelpers.RC(hsv.V + 20, 100);
             }
 
-            if ((hsv.h >= 60) && (hsv.h < 180))
+            if ((hsv.H >= 60) && (hsv.H < 180))
             {
-                yx.h = y.h = hsv.h - 40;
-                y.s = yx.s = hsv.s;
-                y.v = hsv.v; if (hsv.v > 70) { yx.v = hsv.v - 30; } else { yx.v = hsv.v + 30; }
+                yx.H = y.H = hsv.H - 40;
+                y.S = yx.S = hsv.S;
+                y.V = hsv.V; if (hsv.V > 70) { yx.V = hsv.V - 30; } else { yx.V = hsv.V + 30; }
             }
 
-            if ((hsv.h >= 180) && (hsv.h < 220))
+            if ((hsv.H >= 180) && (hsv.H < 220))
             {
-                yx.h = hsv.h - 170;
-                y.h = hsv.h - 160;
-                yx.s = y.s = hsv.s;
-                y.v = hsv.v;
-                if (hsv.v > 70) { yx.v = hsv.v - 30; } else { yx.v = hsv.v + 30; }
+                yx.H = hsv.H - 170;
+                y.H = hsv.H - 160;
+                yx.S = y.S = hsv.S;
+                y.V = hsv.V;
+                if (hsv.V > 70) { yx.V = hsv.V - 30; } else { yx.V = hsv.V + 30; }
 
             }
-            if ((hsv.h >= 220) && (hsv.h < 300))
+            if ((hsv.H >= 220) && (hsv.H < 300))
             {
-                yx.h = y.h = hsv.h;
-                yx.s = y.s = MathHelpers.RC(hsv.s - 40, 100);
-                y.v = hsv.v;
-                if (hsv.v > 70) { yx.v = hsv.v - 30; } else { yx.v = hsv.v + 30; }
+                yx.H = y.H = hsv.H;
+                yx.S = y.S = MathHelpers.RC(hsv.S - 40, 100);
+                y.V = hsv.V;
+                if (hsv.V > 70) { yx.V = hsv.V - 30; } else { yx.V = hsv.V + 30; }
             }
-            if (hsv.h >= 300)
+            if (hsv.H >= 300)
             {
-                if (hsv.s > 50) { y.s = yx.s = hsv.s - 40; } else { y.s = yx.s = hsv.s + 40; }
-                yx.h = y.h = (hsv.h + 20) % 360;
-                y.v = hsv.v;
-                if (hsv.v > 70) { yx.v = hsv.v - 30; } else { yx.v = hsv.v + 30; }
+                if (hsv.S > 50) { y.S = yx.S = hsv.S - 40; } else { y.S = yx.S = hsv.S + 40; }
+                yx.H = y.H = (hsv.H + 20) % 360;
+                y.V = hsv.V;
+                if (hsv.V > 70) { yx.V = hsv.V - 30; } else { yx.V = hsv.V + 30; }
             }
 
             outp.Colors[2] = new HSV(y);
             outp.Colors[3] = new HSV(yx);
 
-            y.h = 0;
-            y.s = 0;
-            y.v = 100 - hsv.v;
+            y.H = 0;
+            y.S = 0;
+            y.V = 100 - hsv.V;
             outp.Colors[4] = new HSV(y);
 
-            y.h = 0;
-            y.s = 0;
-            y.v = hsv.v;
+            y.H = 0;
+            y.S = 0;
+            y.V = hsv.V;
             outp.Colors[5] = new HSV(y);
 
             return outp;

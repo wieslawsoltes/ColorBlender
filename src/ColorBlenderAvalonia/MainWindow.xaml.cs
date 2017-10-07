@@ -1,6 +1,9 @@
 ﻿// Copyright (c) Wiesław Šoltés. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
@@ -8,17 +11,12 @@ using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using ColorBlender;
+using ColorBlender.Algorithms;
 
 namespace ColorBlenderAvalonia
 {
     public class MainWindow : Window
     {
-        private RGB rgb;
-        private HSV hsv;
-        private Blend z;
-        private RGB[] vRGB = new RGB[7];
-        private RGB[] vHSV = new RGB[9];
-        private bool updatingSliders = false;
         private DropDown algorithm;
         private Slider sliderR;
         private Slider sliderG;
@@ -49,16 +47,56 @@ namespace ColorBlenderAvalonia
         private Swatch swatch5;
         private Swatch swatch6;
 
-        private string Algorithm
-        {
-            get { return (algorithm.SelectedItem as DropDownItem).Content.ToString(); }
-        }
+        private RGB rgb;
+        private HSV hsv;
+        private Blend z;
+        private RGB[] vRGB = new RGB[7];
+        private RGB[] vHSV = new RGB[9];
+        private bool updatingSliders = false;
+
+        public IList<IAlgorithm> Algorithms { get; set; }
+        public IAlgorithm CurrentAlgorithm { get; set; }
 
         public MainWindow()
         {
             this.InitializeComponent();
             this.AttachDevTools();
+            this.InitializeNames();
 
+            Algorithms = new ObservableCollection<IAlgorithm>()
+            {
+                new Classic(),
+                new ColorExplorer(),
+                new SingleHue(),
+                new Complementary(),
+                new SplitComplementary(),
+                new Analogue(),
+                new Triadic(),
+                new Square()
+            };
+
+            CurrentAlgorithm = Algorithms.FirstOrDefault();
+
+            DataContext = this;
+
+            hsv = new HSV(213, 46, 49);
+            rgb = new RGB(hsv);
+            z = CurrentAlgorithm.Match(hsv);
+
+            UpdateSliderRGB();
+            UpdateSliderHSV();
+            UpdateSwatches();
+            UpdateVariations();
+            InitializeEventHandlers();
+        }
+
+        private void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
+        }
+
+        private void InitializeNames()
+        {
             algorithm = this.FindControl<DropDown>("algorithm");
             sliderR = this.FindControl<Slider>("sliderR");
             sliderG = this.FindControl<Slider>("sliderG");
@@ -88,16 +126,10 @@ namespace ColorBlenderAvalonia
             swatch4 = this.FindControl<Swatch>("swatch4");
             swatch5 = this.FindControl<Swatch>("swatch5");
             swatch6 = this.FindControl<Swatch>("swatch6");
+        }
 
-            hsv = new HSV(213, 46, 49);
-            rgb = new RGB(hsv);
-            z = ColorMatch.Match(hsv, Algorithm);
-
-            UpdateSliderRGB();
-            UpdateSliderHSV();
-            UpdateSwatches();
-            UpdateVariations();
-
+        private void InitializeEventHandlers()
+        {
             sliderR.GetObservable(Slider.ValueProperty).Subscribe(value => SliderRGB_ValueChanged());
             sliderG.GetObservable(Slider.ValueProperty).Subscribe(value => SliderRGB_ValueChanged());
             sliderB.GetObservable(Slider.ValueProperty).Subscribe(value => SliderRGB_ValueChanged());
@@ -112,6 +144,7 @@ namespace ColorBlenderAvalonia
             rgbvar5.PointerPressed += Rectangle_PointerPressed;
             rgbvar6.PointerPressed += Rectangle_PointerPressed;
             rgbvar7.PointerPressed += Rectangle_PointerPressed;
+
             hsvvar1.PointerPressed += Rectangle_PointerPressed;
             hsvvar2.PointerPressed += Rectangle_PointerPressed;
             hsvvar3.PointerPressed += Rectangle_PointerPressed;
@@ -121,23 +154,20 @@ namespace ColorBlenderAvalonia
             hsvvar7.PointerPressed += Rectangle_PointerPressed;
             hsvvar8.PointerPressed += Rectangle_PointerPressed;
             hsvvar9.PointerPressed += Rectangle_PointerPressed;
+
             swatch1.col.PointerPressed += Rectangle_PointerPressed;
             swatch2.col.PointerPressed += Rectangle_PointerPressed;
             swatch3.col.PointerPressed += Rectangle_PointerPressed;
             swatch4.col.PointerPressed += Rectangle_PointerPressed;
             swatch5.col.PointerPressed += Rectangle_PointerPressed;
             swatch6.col.PointerPressed += Rectangle_PointerPressed;
-            algorithm.SelectionChanged += Algorithm_SelectionChanged;
-        }
 
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
+            algorithm.SelectionChanged += Algorithm_SelectionChanged;
         }
 
         private void Algorithm_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            z = ColorMatch.Match(hsv, Algorithm);
+            z = CurrentAlgorithm.Match(hsv);
             UpdateSwatches();
             UpdateVariations();
         }
@@ -173,7 +203,7 @@ namespace ColorBlenderAvalonia
             UpdateSliderHSV();
             updatingSliders = false;
 
-            z = ColorMatch.Match(hsv, Algorithm);
+            z = CurrentAlgorithm.Match(hsv);
             UpdateSwatches();
             UpdateVariations();
         }
@@ -190,16 +220,16 @@ namespace ColorBlenderAvalonia
 
         private void UpdateSliderRGB()
         {
-            sliderR.Value = rgb.r;
-            sliderG.Value = rgb.g;
-            sliderB.Value = rgb.b;
+            sliderR.Value = rgb.R;
+            sliderG.Value = rgb.G;
+            sliderB.Value = rgb.B;
         }
 
         private void UpdateSliderHSV()
         {
-            sliderH.Value = hsv.h;
-            sliderS.Value = hsv.s;
-            sliderV.Value = hsv.v;
+            sliderH.Value = hsv.H;
+            sliderS.Value = hsv.S;
+            sliderV.Value = hsv.V;
         }
 
         private double AddLimit(double x, double d, double min, double max)
@@ -217,13 +247,13 @@ namespace ColorBlenderAvalonia
             var rgbobj = new RGB();
             var hsvobj = new HSV
             {
-                h = hsv.h,
-                s = hsv.s,
-                v = hsv.v
+                H = hsv.H,
+                S = hsv.S,
+                V = hsv.V
             };
 
-            hsvobj.s = AddLimit(hsvobj.s, addsat, 0, 99);
-            hsvobj.v = AddLimit(hsvobj.v, addval, 0, 99);
+            hsvobj.S = AddLimit(hsvobj.S, addsat, 0, 99);
+            hsvobj.V = AddLimit(hsvobj.V, addval, 0, 99);
 
             rgbobj = hsvobj.ToRGB();
 
@@ -235,13 +265,13 @@ namespace ColorBlenderAvalonia
             double vv = 20;
             double vw = 10;
 
-            vRGB[0] = new RGB(AddLimit(rgb.r, -vw, 0, 255), AddLimit(rgb.g, vv, 0, 255), AddLimit(rgb.b, -vw, 0, 255));
-            vRGB[1] = new RGB(AddLimit(rgb.r, vw, 0, 255), AddLimit(rgb.g, vw, 0, 255), AddLimit(rgb.b, -vv, 0, 255));
-            vRGB[2] = new RGB(AddLimit(rgb.r, -vv, 0, 255), AddLimit(rgb.g, vw, 0, 255), AddLimit(rgb.b, vw, 0, 255));
-            vRGB[3] = new RGB(rgb.r, rgb.g, rgb.b);
-            vRGB[4] = new RGB(AddLimit(rgb.r, vv, 0, 255), AddLimit(rgb.g, -vw, 0, 255), AddLimit(rgb.b, -vw, 0, 255));
-            vRGB[5] = new RGB(AddLimit(rgb.r, -vw, 0, 255), AddLimit(rgb.g, -vw, 0, 255), AddLimit(rgb.b, vv, 0, 255));
-            vRGB[6] = new RGB(AddLimit(rgb.r, vw, 0, 255), AddLimit(rgb.g, -vv, 0, 255), AddLimit(rgb.b, vw, 0, 255));
+            vRGB[0] = new RGB(AddLimit(rgb.R, -vw, 0, 255), AddLimit(rgb.G, vv, 0, 255), AddLimit(rgb.B, -vw, 0, 255));
+            vRGB[1] = new RGB(AddLimit(rgb.R, vw, 0, 255), AddLimit(rgb.G, vw, 0, 255), AddLimit(rgb.B, -vv, 0, 255));
+            vRGB[2] = new RGB(AddLimit(rgb.R, -vv, 0, 255), AddLimit(rgb.G, vw, 0, 255), AddLimit(rgb.B, vw, 0, 255));
+            vRGB[3] = new RGB(rgb.R, rgb.G, rgb.B);
+            vRGB[4] = new RGB(AddLimit(rgb.R, vv, 0, 255), AddLimit(rgb.G, -vw, 0, 255), AddLimit(rgb.B, -vw, 0, 255));
+            vRGB[5] = new RGB(AddLimit(rgb.R, -vw, 0, 255), AddLimit(rgb.G, -vw, 0, 255), AddLimit(rgb.B, vv, 0, 255));
+            vRGB[6] = new RGB(AddLimit(rgb.R, vw, 0, 255), AddLimit(rgb.G, -vv, 0, 255), AddLimit(rgb.B, vw, 0, 255));
         }
 
         private void UpdateVariationsHSV()
@@ -285,9 +315,9 @@ namespace ColorBlenderAvalonia
 
         private void HandleSliderValueChangedRGB()
         {
-            rgb.r = sliderR.Value;
-            rgb.g = sliderG.Value;
-            rgb.b = sliderB.Value;
+            rgb.R = sliderR.Value;
+            rgb.G = sliderG.Value;
+            rgb.B = sliderB.Value;
 
             hsv = rgb.ToHSV();
             rgb = hsv.ToRGB();
@@ -296,16 +326,16 @@ namespace ColorBlenderAvalonia
             UpdateSliderHSV();
             updatingSliders = false;
 
-            z = ColorMatch.Match(hsv, Algorithm);
+            z = CurrentAlgorithm.Match(hsv);
             UpdateSwatches();
             UpdateVariations();
         }
 
         private void HandleSliderValueChangedHSV()
         {
-            hsv.h = sliderH.Value;
-            hsv.s = sliderS.Value;
-            hsv.v = sliderV.Value;
+            hsv.H = sliderH.Value;
+            hsv.S = sliderS.Value;
+            hsv.V = sliderV.Value;
 
             rgb = hsv.ToRGB();
 
@@ -313,7 +343,7 @@ namespace ColorBlenderAvalonia
             UpdateSliderRGB();
             updatingSliders = false;
 
-            z = ColorMatch.Match(hsv, Algorithm);
+            z = CurrentAlgorithm.Match(hsv);
             UpdateSwatches();
             UpdateVariations();
         }

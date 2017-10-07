@@ -1,11 +1,15 @@
 ﻿// Copyright (c) Wiesław Šoltés. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using ColorBlender;
+using ColorBlender.Algorithms;
 
 namespace ColorBlenderWPF
 {
@@ -13,35 +17,54 @@ namespace ColorBlenderWPF
     {
         private RGB rgb;
         private HSV hsv;
-        private Blend z;
+        private Blend blend;
         private RGB[] vRGB = new RGB[7];
         private RGB[] vHSV = new RGB[9];
         private bool updatingSliders = false;
 
-        private string Algorithm
-        {
-            get { return (algorithm.SelectedItem as ComboBoxItem).Content.ToString(); }
-        }
+        public IList<IAlgorithm> Algorithms { get; set; }
+        public IAlgorithm CurrentAlgorithm { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
 
+            Algorithms = new ObservableCollection<IAlgorithm>()
+            {
+                new Classic(),
+                new ColorExplorer(),
+                new SingleHue(),
+                new Complementary(),
+                new SplitComplementary(),
+                new Analogue(),
+                new Triadic(),
+                new Square()
+            };
+
+            CurrentAlgorithm = Algorithms.FirstOrDefault();
+
+            DataContext = this;
+
             hsv = new HSV(213, 46, 49);
             rgb = new RGB(hsv);
-            z = ColorMatch.Match(hsv, Algorithm);
+            blend = CurrentAlgorithm.Match(hsv);
 
             UpdateSliderRGB();
             UpdateSliderHSV();
             UpdateSwatches();
             UpdateVariations();
+            InitializeEventHandlers();
+        }
 
+        private void InitializeEventHandlers()
+        {
             sliderR.ValueChanged += SliderRGB_ValueChanged;
             sliderG.ValueChanged += SliderRGB_ValueChanged;
             sliderB.ValueChanged += SliderRGB_ValueChanged;
             sliderH.ValueChanged += SliderHSV_ValueChanged;
             sliderS.ValueChanged += SliderHSV_ValueChanged;
             sliderV.ValueChanged += SliderHSV_ValueChanged;
+
             rgbvar1.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
             rgbvar2.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
             rgbvar3.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
@@ -49,6 +72,7 @@ namespace ColorBlenderWPF
             rgbvar5.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
             rgbvar6.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
             rgbvar7.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
+
             hsvvar1.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
             hsvvar2.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
             hsvvar3.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
@@ -58,18 +82,20 @@ namespace ColorBlenderWPF
             hsvvar7.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
             hsvvar8.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
             hsvvar9.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
+
             swatch1.col.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
             swatch2.col.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
             swatch3.col.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
             swatch4.col.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
             swatch5.col.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
             swatch6.col.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
+
             algorithm.SelectionChanged += Algorithm_SelectionChanged;
         }
 
         private void Algorithm_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            z = ColorMatch.Match(hsv, Algorithm);
+            blend = CurrentAlgorithm.Match(hsv);
             UpdateSwatches();
             UpdateVariations();
         }
@@ -105,33 +131,33 @@ namespace ColorBlenderWPF
             UpdateSliderHSV();
             updatingSliders = false;
 
-            z = ColorMatch.Match(hsv, Algorithm);
+            blend = CurrentAlgorithm.Match(hsv);
             UpdateSwatches();
             UpdateVariations();
         }
 
         private void UpdateSwatches()
         {
-            swatch1.col.Fill = new SolidColorBrush(ColorExtensions.ToColor(z.Colors[0]));
-            swatch2.col.Fill = new SolidColorBrush(ColorExtensions.ToColor(z.Colors[1]));
-            swatch3.col.Fill = new SolidColorBrush(ColorExtensions.ToColor(z.Colors[2]));
-            swatch4.col.Fill = new SolidColorBrush(ColorExtensions.ToColor(z.Colors[3]));
-            swatch5.col.Fill = new SolidColorBrush(ColorExtensions.ToColor(z.Colors[4]));
-            swatch6.col.Fill = new SolidColorBrush(ColorExtensions.ToColor(z.Colors[5]));
+            swatch1.col.Fill = new SolidColorBrush(ColorExtensions.ToColor(blend.Colors[0]));
+            swatch2.col.Fill = new SolidColorBrush(ColorExtensions.ToColor(blend.Colors[1]));
+            swatch3.col.Fill = new SolidColorBrush(ColorExtensions.ToColor(blend.Colors[2]));
+            swatch4.col.Fill = new SolidColorBrush(ColorExtensions.ToColor(blend.Colors[3]));
+            swatch5.col.Fill = new SolidColorBrush(ColorExtensions.ToColor(blend.Colors[4]));
+            swatch6.col.Fill = new SolidColorBrush(ColorExtensions.ToColor(blend.Colors[5]));
         }
 
         private void UpdateSliderRGB()
         {
-            sliderR.Value = rgb.r;
-            sliderG.Value = rgb.g;
-            sliderB.Value = rgb.b;
+            sliderR.Value = rgb.R;
+            sliderG.Value = rgb.G;
+            sliderB.Value = rgb.B;
         }
 
         private void UpdateSliderHSV()
         {
-            sliderH.Value = hsv.h;
-            sliderS.Value = hsv.s;
-            sliderV.Value = hsv.v;
+            sliderH.Value = hsv.H;
+            sliderS.Value = hsv.S;
+            sliderV.Value = hsv.V;
         }
 
         private double AddLimit(double x, double d, double min, double max)
@@ -149,13 +175,13 @@ namespace ColorBlenderWPF
             var rgbobj = new RGB();
             var hsvobj = new HSV
             {
-                h = hsv.h,
-                s = hsv.s,
-                v = hsv.v
+                H = hsv.H,
+                S = hsv.S,
+                V = hsv.V
             };
 
-            hsvobj.s = AddLimit(hsvobj.s, addsat, 0, 99);
-            hsvobj.v = AddLimit(hsvobj.v, addval, 0, 99);
+            hsvobj.S = AddLimit(hsvobj.S, addsat, 0, 99);
+            hsvobj.V = AddLimit(hsvobj.V, addval, 0, 99);
 
             rgbobj = hsvobj.ToRGB();
 
@@ -167,13 +193,13 @@ namespace ColorBlenderWPF
             double vv = 20;
             double vw = 10;
 
-            vRGB[0] = new RGB(AddLimit(rgb.r, -vw, 0, 255), AddLimit(rgb.g, vv, 0, 255), AddLimit(rgb.b, -vw, 0, 255));
-            vRGB[1] = new RGB(AddLimit(rgb.r, vw, 0, 255), AddLimit(rgb.g, vw, 0, 255), AddLimit(rgb.b, -vv, 0, 255));
-            vRGB[2] = new RGB(AddLimit(rgb.r, -vv, 0, 255), AddLimit(rgb.g, vw, 0, 255), AddLimit(rgb.b, vw, 0, 255));
-            vRGB[3] = new RGB(rgb.r, rgb.g, rgb.b);
-            vRGB[4] = new RGB(AddLimit(rgb.r, vv, 0, 255), AddLimit(rgb.g, -vw, 0, 255), AddLimit(rgb.b, -vw, 0, 255));
-            vRGB[5] = new RGB(AddLimit(rgb.r, -vw, 0, 255), AddLimit(rgb.g, -vw, 0, 255), AddLimit(rgb.b, vv, 0, 255));
-            vRGB[6] = new RGB(AddLimit(rgb.r, vw, 0, 255), AddLimit(rgb.g, -vv, 0, 255), AddLimit(rgb.b, vw, 0, 255));
+            vRGB[0] = new RGB(AddLimit(rgb.R, -vw, 0, 255), AddLimit(rgb.G, vv, 0, 255), AddLimit(rgb.B, -vw, 0, 255));
+            vRGB[1] = new RGB(AddLimit(rgb.R, vw, 0, 255), AddLimit(rgb.G, vw, 0, 255), AddLimit(rgb.B, -vv, 0, 255));
+            vRGB[2] = new RGB(AddLimit(rgb.R, -vv, 0, 255), AddLimit(rgb.G, vw, 0, 255), AddLimit(rgb.B, vw, 0, 255));
+            vRGB[3] = new RGB(rgb.R, rgb.G, rgb.B);
+            vRGB[4] = new RGB(AddLimit(rgb.R, vv, 0, 255), AddLimit(rgb.G, -vw, 0, 255), AddLimit(rgb.B, -vw, 0, 255));
+            vRGB[5] = new RGB(AddLimit(rgb.R, -vw, 0, 255), AddLimit(rgb.G, -vw, 0, 255), AddLimit(rgb.B, vv, 0, 255));
+            vRGB[6] = new RGB(AddLimit(rgb.R, vw, 0, 255), AddLimit(rgb.G, -vv, 0, 255), AddLimit(rgb.B, vw, 0, 255));
         }
 
         private void UpdateVariationsHSV()
@@ -217,9 +243,9 @@ namespace ColorBlenderWPF
 
         private void HandleSliderValueChangedRGB()
         {
-            rgb.r = sliderR.Value;
-            rgb.g = sliderG.Value;
-            rgb.b = sliderB.Value;
+            rgb.R = sliderR.Value;
+            rgb.G = sliderG.Value;
+            rgb.B = sliderB.Value;
 
             hsv = rgb.ToHSV();
             rgb = hsv.ToRGB();
@@ -228,16 +254,16 @@ namespace ColorBlenderWPF
             UpdateSliderHSV();
             updatingSliders = false;
 
-            z = ColorMatch.Match(hsv, Algorithm);
+            blend = CurrentAlgorithm.Match(hsv);
             UpdateSwatches();
             UpdateVariations();
         }
 
         private void HandleSliderValueChangedHSV()
         {
-            hsv.h = sliderH.Value;
-            hsv.s = sliderS.Value;
-            hsv.v = sliderV.Value;
+            hsv.H = sliderH.Value;
+            hsv.S = sliderS.Value;
+            hsv.V = sliderV.Value;
 
             rgb = hsv.ToRGB();
 
@@ -245,7 +271,7 @@ namespace ColorBlenderWPF
             UpdateSliderRGB();
             updatingSliders = false;
 
-            z = ColorMatch.Match(hsv, Algorithm);
+            blend = CurrentAlgorithm.Match(hsv);
             UpdateSwatches();
             UpdateVariations();
         }

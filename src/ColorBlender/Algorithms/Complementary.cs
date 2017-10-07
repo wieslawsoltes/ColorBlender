@@ -13,31 +13,31 @@ namespace ColorBlender.Algorithms
 
             HSV z = new HSV
             {
-                h = hsv.h,
-                s = (hsv.s > 50) ? (hsv.s * 0.5) : (hsv.s * 2),
-                v = (hsv.v < 50) ? (Math.Min(hsv.v * 1.5, 100)) : (hsv.v / 1.5)
+                H = hsv.H,
+                S = (hsv.S > 50) ? (hsv.S * 0.5) : (hsv.S * 2),
+                V = (hsv.V < 50) ? (Math.Min(hsv.V * 1.5, 100)) : (hsv.V / 1.5)
             };
             outp.Colors[1] = new HSV(z);
 
-            var w = MathHelpers.HueToWheel(hsv.h);
-            z.h = MathHelpers.WheelToHue((w + 180) % 360);
-            z.s = hsv.s;
-            z.v = hsv.v;
+            var w = MathHelpers.HueToWheel(hsv.H);
+            z.H = MathHelpers.WheelToHue((w + 180) % 360);
+            z.S = hsv.S;
+            z.V = hsv.V;
             outp.Colors[2] = new HSV(z);
 
-            z.s = (z.s > 50) ? (z.s * 0.5) : (z.s * 2);
-            z.v = (z.v < 50) ? (Math.Min(z.v * 1.5, 100)) : (z.v / 1.5);
+            z.S = (z.S > 50) ? (z.S * 0.5) : (z.S * 2);
+            z.V = (z.V < 50) ? (Math.Min(z.V * 1.5, 100)) : (z.V / 1.5);
             outp.Colors[3] = new HSV(z);
 
             z = new HSV
             {
-                s = 0,
-                h = 0,
-                v = hsv.v
+                S = 0,
+                H = 0,
+                V = hsv.V
             };
             outp.Colors[4] = new HSV(z);
 
-            z.v = 100 - hsv.v;
+            z.V = 100 - hsv.V;
             outp.Colors[5] = new HSV(z);
 
             return outp;

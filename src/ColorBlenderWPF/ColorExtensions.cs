@@ -26,9 +26,9 @@ namespace ColorBlenderWPF
         public static Color ToColor(this RGB rgb)
         {
             return Color.FromRgb(
-                (byte)Math.Round(rgb.r),
-                (byte)Math.Round(rgb.g),
-                (byte)Math.Round(rgb.b));
+                (byte)Math.Round(rgb.R),
+                (byte)Math.Round(rgb.G),
+                (byte)Math.Round(rgb.B));
         }
     }
 }

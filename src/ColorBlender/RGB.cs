@@ -6,61 +6,61 @@ namespace ColorBlender
 {
     public class RGB
     {
-        public double r;
-        public double g;
-        public double b;
+        public double R;
+        public double G;
+        public double B;
 
         public RGB() { }
 
         public RGB(double r, double g, double b)
         {
-            this.r = r;
-            this.g = g;
-            this.b = b;
+            this.R = r;
+            this.G = g;
+            this.B = b;
         }
 
         public RGB(RGB rg)
         {
-            this.r = rg.r;
-            this.g = rg.g;
-            this.b = rg.b;
+            this.R = rg.R;
+            this.G = rg.G;
+            this.B = rg.B;
         }
 
         public RGB(HSV hs)
         {
             RGB rg = hs.ToRGB();
-            this.r = rg.r;
-            this.g = rg.g;
-            this.b = rg.b;
+            this.R = rg.R;
+            this.G = rg.G;
+            this.B = rg.B;
         }
 
         public HSV ToHSV()
         {
             HSV hs = new HSV();
-            RGB rg = new RGB(this.r, this.g, this.b);
+            RGB rg = new RGB(this.R, this.G, this.B);
 
-            var m = rg.r;
-            if (rg.g < m) { m = rg.g; }
-            if (rg.b < m) { m = rg.b; }
-            var v = rg.r;
-            if (rg.g > v) { v = rg.g; }
-            if (rg.b > v) { v = rg.b; }
+            var m = rg.R;
+            if (rg.G < m) { m = rg.G; }
+            if (rg.B < m) { m = rg.B; }
+            var v = rg.R;
+            if (rg.G > v) { v = rg.G; }
+            if (rg.B > v) { v = rg.B; }
             var value = 100 * v / 255;
             var delta = v - m;
-            if (v == 0.0) { hs.s = 0; } else { hs.s = 100 * delta / v; }
+            if (v == 0.0) { hs.S = 0; } else { hs.S = 100 * delta / v; }
 
-            if (hs.s == 0) { hs.h = 0; }
+            if (hs.S == 0) { hs.H = 0; }
             else
             {
-                if (rg.r == v) { hs.h = 60.0 * (rg.g - rg.b) / delta; }
-                else if (rg.g == v) { hs.h = 120.0 + 60.0 * (rg.b - rg.r) / delta; }
-                else if (rg.b == v) { hs.h = 240.0 + 60.0 * (rg.r - rg.g) / delta; }
-                if (hs.h < 0.0) { hs.h = hs.h + 360.0; }
+                if (rg.R == v) { hs.H = 60.0 * (rg.G - rg.B) / delta; }
+                else if (rg.G == v) { hs.H = 120.0 + 60.0 * (rg.B - rg.R) / delta; }
+                else if (rg.B == v) { hs.H = 240.0 + 60.0 * (rg.R - rg.G) / delta; }
+                if (hs.H < 0.0) { hs.H = hs.H + 360.0; }
             }
 
-            hs.h = Math.Round(hs.h);
-            hs.s = Math.Round(hs.s);
-            hs.v = Math.Round(value);
+            hs.H = Math.Round(hs.H);
+            hs.S = Math.Round(hs.S);
+            hs.V = Math.Round(value);
 
             return hs;
         }

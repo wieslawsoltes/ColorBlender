@@ -6,67 +6,67 @@ namespace ColorBlender
 {
     public class HSV
     {
-        public double h;
-        public double s;
-        public double v;
+        public double H;
+        public double S;
+        public double V;
 
         public HSV() { }
 
         public HSV(double h, double s, double v)
         {
-            this.h = h;
-            this.s = s;
-            this.v = v;
+            this.H = h;
+            this.S = s;
+            this.V = v;
         }
 
         public HSV(HSV hs)
         {
-            this.h = hs.h;
-            this.s = hs.s;
-            this.v = hs.v;
+            this.H = hs.H;
+            this.S = hs.S;
+            this.V = hs.V;
         }
 
         public HSV(RGB rg)
         {
             HSV hs = rg.ToHSV();
-            this.h = hs.h;
-            this.s = hs.s;
-            this.v = hs.v;
+            this.H = hs.H;
+            this.S = hs.S;
+            this.V = hs.V;
         }
 
         public RGB ToRGB()
         {
             RGB rg = new RGB();
-            HSV hsx = new HSV(this.h, this.s, this.v);
+            HSV hsx = new HSV(this.H, this.S, this.V);
 
-            if (hsx.s == 0)
+            if (hsx.S == 0)
             {
-                rg.r = rg.g = rg.b = Math.Round(hsx.v * 2.55); return (rg);
+                rg.R = rg.G = rg.B = Math.Round(hsx.V * 2.55); return (rg);
             }
 
-            hsx.s = hsx.s / 100;
-            hsx.v = hsx.v / 100;
-            hsx.h /= 60;
+            hsx.S = hsx.S / 100;
+            hsx.V = hsx.V / 100;
+            hsx.H /= 60;
 
-            var i = Math.Floor(hsx.h);
-            var f = hsx.h - i;
-            var p = hsx.v * (1 - hsx.s);
-            var q = hsx.v * (1 - hsx.s * f);
-            var t = hsx.v * (1 - hsx.s * (1 - f));
+            var i = Math.Floor(hsx.H);
+            var f = hsx.H - i;
+            var p = hsx.V * (1 - hsx.S);
+            var q = hsx.V * (1 - hsx.S * f);
+            var t = hsx.V * (1 - hsx.S * (1 - f));
 
             switch ((int)i)
             {
-                case 0: rg.r = hsx.v; rg.g = t; rg.b = p; break;
-                case 1: rg.r = q; rg.g = hsx.v; rg.b = p; break;
-                case 2: rg.r = p; rg.g = hsx.v; rg.b = t; break;
-                case 3: rg.r = p; rg.g = q; rg.b = hsx.v; break;
-                case 4: rg.r = t; rg.g = p; rg.b = hsx.v; break;
-                default: rg.r = hsx.v; rg.g = p; rg.b = q; break;
+                case 0: rg.R = hsx.V; rg.G = t; rg.B = p; break;
+                case 1: rg.R = q; rg.G = hsx.V; rg.B = p; break;
+                case 2: rg.R = p; rg.G = hsx.V; rg.B = t; break;
+                case 3: rg.R = p; rg.G = q; rg.B = hsx.V; break;
+                case 4: rg.R = t; rg.G = p; rg.B = hsx.V; break;
+                default: rg.R = hsx.V; rg.G = p; rg.B = q; break;
             }
 
-            rg.r = Math.Round(rg.r * 255);
-            rg.g = Math.Round(rg.g * 255);
-            rg.b = Math.Round(rg.b * 255);
+            rg.R = Math.Round(rg.R * 255);
+            rg.G = Math.Round(rg.G * 255);
+            rg.B = Math.Round(rg.B * 255);
 
             return rg;
         }

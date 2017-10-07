@@ -13,29 +13,29 @@ namespace ColorBlender.Algorithms
 
             HSV z = new HSV
             {
-                h = hsv.h,
-                s = Math.Round(hsv.s * 0.3),
-                v = Math.Min(Math.Round(hsv.v * 1.3), 100)
+                H = hsv.H,
+                S = Math.Round(hsv.S * 0.3),
+                V = Math.Min(Math.Round(hsv.V * 1.3), 100)
             };
             outp.Colors[1] = new HSV(z);
 
             z = new HSV
             {
-                h = (hsv.h + 300) % 360,
-                s = hsv.s,
-                v = hsv.v
+                H = (hsv.H + 300) % 360,
+                S = hsv.S,
+                V = hsv.V
             };
             outp.Colors[3] = new HSV(z);
 
-            z.s = Math.Min(Math.Round(z.s * 1.2), 100);
-            z.v = Math.Min(Math.Round(z.v * 0.5), 100);
+            z.S = Math.Min(Math.Round(z.S * 1.2), 100);
+            z.V = Math.Min(Math.Round(z.V * 0.5), 100);
             outp.Colors[2] = new HSV(z);
 
-            z.s = 0;
-            z.v = (hsv.v + 50) % 100;
+            z.S = 0;
+            z.V = (hsv.V + 50) % 100;
             outp.Colors[4] = new HSV(z);
 
-            z.v = (z.v + 50) % 100;
+            z.V = (z.V + 50) % 100;
             outp.Colors[5] = new HSV(z);
 
             return outp;

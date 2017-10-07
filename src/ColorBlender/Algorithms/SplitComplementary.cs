@@ -10,34 +10,34 @@ namespace ColorBlender.Algorithms
             Blend outp = new Blend();
             outp.Colors[0] = new HSV(hsv);
 
-            var w = MathHelpers.HueToWheel(hsv.h);
+            var w = MathHelpers.HueToWheel(hsv.H);
             HSV z = new HSV
             {
-                h = hsv.h,
-                s = hsv.s,
-                v = hsv.v
+                H = hsv.H,
+                S = hsv.S,
+                V = hsv.V
             };
 
-            z.h = MathHelpers.WheelToHue((w + 150) % 360);
-            z.s = hsv.s;
-            z.v = hsv.v;
+            z.H = MathHelpers.WheelToHue((w + 150) % 360);
+            z.S = hsv.S;
+            z.V = hsv.V;
             outp.Colors[1] = new HSV(z);
 
-            z.h = MathHelpers.WheelToHue((w + 210) % 360);
-            z.s = hsv.s;
-            z.v = hsv.v;
+            z.H = MathHelpers.WheelToHue((w + 210) % 360);
+            z.S = hsv.S;
+            z.V = hsv.V;
             outp.Colors[2] = new HSV(z);
 
-            z.s = 0;
-            z.v = hsv.s;
+            z.S = 0;
+            z.V = hsv.S;
             outp.Colors[3] = new HSV(z);
 
-            z.s = 0;
-            z.v = hsv.v;
+            z.S = 0;
+            z.V = hsv.V;
             outp.Colors[4] = new HSV(z);
 
-            z.s = 0;
-            z.v = (100 - hsv.v);
+            z.S = 0;
+            z.V = (100 - hsv.V);
             outp.Colors[5] = new HSV(z);
 
             return outp;
