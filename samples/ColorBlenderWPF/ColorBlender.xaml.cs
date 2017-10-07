@@ -15,15 +15,15 @@ namespace ColorBlenderWPF
 {
     public partial class ColorBlender : UserControl
     {
-        private RGB rgb;
-        private HSV hsv;
-        private Blend blend;
-        private RGB[] vRGB = new RGB[7];
-        private RGB[] vHSV = new RGB[9];
-        private bool updatingSliders = false;
+        private bool _updatingSliders = false;
 
         public IList<IAlgorithm> Algorithms { get; set; }
         public IAlgorithm CurrentAlgorithm { get; set; }
+        public Blend CurrentBlend { get; set; }
+        public RGB CurrentRGB { get; set; }
+        public HSV CurrentHSV { get; set; }
+        public RGB[] VariationsRGB { get; set; }
+        public RGB[] VariationsHSV { get; set; }
 
         public ColorBlender()
         {
@@ -45,14 +45,20 @@ namespace ColorBlenderWPF
 
             DataContext = this;
 
-            hsv = new HSV(213, 46, 49);
-            rgb = new RGB(hsv);
-            blend = CurrentAlgorithm.Match(hsv);
+            CurrentHSV = new HSV(213, 46, 49);
+            CurrentRGB = new RGB(CurrentHSV);
+
+            CurrentBlend = CurrentAlgorithm.Match(CurrentHSV);
+            VariationsRGB = new RGB[7];
+            VariationsHSV = new RGB[9];
+            UpdateVariationsRGB();
+            UpdateVariationsHSV();
 
             UpdateSliderRGB();
             UpdateSliderHSV();
             UpdateSwatches();
             UpdateVariations();
+
             InitializeEventHandlers();
         }
 
@@ -95,14 +101,16 @@ namespace ColorBlenderWPF
 
         private void Algorithm_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            blend = CurrentAlgorithm.Match(hsv);
+            CurrentBlend = CurrentAlgorithm.Match(CurrentHSV);
             UpdateSwatches();
+            UpdateVariationsRGB();
+            UpdateVariationsHSV();
             UpdateVariations();
         }
 
         private void SliderRGB_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            if (updatingSliders == false)
+            if (_updatingSliders == false)
             {
                 HandleSliderValueChangedRGB();
             }
@@ -110,7 +118,7 @@ namespace ColorBlenderWPF
 
         private void SliderHSV_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            if (updatingSliders == false)
+            if (_updatingSliders == false)
             {
                 HandleSliderValueChangedHSV();
             }
@@ -123,41 +131,43 @@ namespace ColorBlenderWPF
 
         private void HandleRectangleClick(SolidColorBrush b)
         {
-            rgb = ColorExtensions.ToRGB(b.Color);
-            hsv = rgb.ToHSV();
+            CurrentRGB = ColorExtensions.ToRGB(b.Color);
+            CurrentHSV = CurrentRGB.ToHSV();
 
-            updatingSliders = true;
+            _updatingSliders = true;
             UpdateSliderRGB();
             UpdateSliderHSV();
-            updatingSliders = false;
+            _updatingSliders = false;
 
-            blend = CurrentAlgorithm.Match(hsv);
+            CurrentBlend = CurrentAlgorithm.Match(CurrentHSV);
             UpdateSwatches();
+            UpdateVariationsRGB();
+            UpdateVariationsHSV();
             UpdateVariations();
         }
 
         private void UpdateSwatches()
         {
-            swatch1.col.Fill = new SolidColorBrush(ColorExtensions.ToColor(blend.Colors[0]));
-            swatch2.col.Fill = new SolidColorBrush(ColorExtensions.ToColor(blend.Colors[1]));
-            swatch3.col.Fill = new SolidColorBrush(ColorExtensions.ToColor(blend.Colors[2]));
-            swatch4.col.Fill = new SolidColorBrush(ColorExtensions.ToColor(blend.Colors[3]));
-            swatch5.col.Fill = new SolidColorBrush(ColorExtensions.ToColor(blend.Colors[4]));
-            swatch6.col.Fill = new SolidColorBrush(ColorExtensions.ToColor(blend.Colors[5]));
+            swatch1.col.Fill = new SolidColorBrush(ColorExtensions.ToColor(CurrentBlend.Colors[0]));
+            swatch2.col.Fill = new SolidColorBrush(ColorExtensions.ToColor(CurrentBlend.Colors[1]));
+            swatch3.col.Fill = new SolidColorBrush(ColorExtensions.ToColor(CurrentBlend.Colors[2]));
+            swatch4.col.Fill = new SolidColorBrush(ColorExtensions.ToColor(CurrentBlend.Colors[3]));
+            swatch5.col.Fill = new SolidColorBrush(ColorExtensions.ToColor(CurrentBlend.Colors[4]));
+            swatch6.col.Fill = new SolidColorBrush(ColorExtensions.ToColor(CurrentBlend.Colors[5]));
         }
 
         private void UpdateSliderRGB()
         {
-            sliderR.Value = rgb.R;
-            sliderG.Value = rgb.G;
-            sliderB.Value = rgb.B;
+            sliderR.Value = CurrentRGB.R;
+            sliderG.Value = CurrentRGB.G;
+            sliderB.Value = CurrentRGB.B;
         }
 
         private void UpdateSliderHSV()
         {
-            sliderH.Value = hsv.H;
-            sliderS.Value = hsv.S;
-            sliderV.Value = hsv.V;
+            sliderH.Value = CurrentHSV.H;
+            sliderS.Value = CurrentHSV.S;
+            sliderV.Value = CurrentHSV.V;
         }
 
         private double AddLimit(double x, double d, double min, double max)
@@ -193,86 +203,87 @@ namespace ColorBlenderWPF
             double vv = 20;
             double vw = 10;
 
-            vRGB[0] = new RGB(AddLimit(rgb.R, -vw, 0, 255), AddLimit(rgb.G, vv, 0, 255), AddLimit(rgb.B, -vw, 0, 255));
-            vRGB[1] = new RGB(AddLimit(rgb.R, vw, 0, 255), AddLimit(rgb.G, vw, 0, 255), AddLimit(rgb.B, -vv, 0, 255));
-            vRGB[2] = new RGB(AddLimit(rgb.R, -vv, 0, 255), AddLimit(rgb.G, vw, 0, 255), AddLimit(rgb.B, vw, 0, 255));
-            vRGB[3] = new RGB(rgb.R, rgb.G, rgb.B);
-            vRGB[4] = new RGB(AddLimit(rgb.R, vv, 0, 255), AddLimit(rgb.G, -vw, 0, 255), AddLimit(rgb.B, -vw, 0, 255));
-            vRGB[5] = new RGB(AddLimit(rgb.R, -vw, 0, 255), AddLimit(rgb.G, -vw, 0, 255), AddLimit(rgb.B, vv, 0, 255));
-            vRGB[6] = new RGB(AddLimit(rgb.R, vw, 0, 255), AddLimit(rgb.G, -vv, 0, 255), AddLimit(rgb.B, vw, 0, 255));
+            VariationsRGB[0] = new RGB(AddLimit(CurrentRGB.R, -vw, 0, 255), AddLimit(CurrentRGB.G, vv, 0, 255), AddLimit(CurrentRGB.B, -vw, 0, 255));
+            VariationsRGB[1] = new RGB(AddLimit(CurrentRGB.R, vw, 0, 255), AddLimit(CurrentRGB.G, vw, 0, 255), AddLimit(CurrentRGB.B, -vv, 0, 255));
+            VariationsRGB[2] = new RGB(AddLimit(CurrentRGB.R, -vv, 0, 255), AddLimit(CurrentRGB.G, vw, 0, 255), AddLimit(CurrentRGB.B, vw, 0, 255));
+            VariationsRGB[3] = new RGB(CurrentRGB.R, CurrentRGB.G, CurrentRGB.B);
+            VariationsRGB[4] = new RGB(AddLimit(CurrentRGB.R, vv, 0, 255), AddLimit(CurrentRGB.G, -vw, 0, 255), AddLimit(CurrentRGB.B, -vw, 0, 255));
+            VariationsRGB[5] = new RGB(AddLimit(CurrentRGB.R, -vw, 0, 255), AddLimit(CurrentRGB.G, -vw, 0, 255), AddLimit(CurrentRGB.B, vv, 0, 255));
+            VariationsRGB[6] = new RGB(AddLimit(CurrentRGB.R, vw, 0, 255), AddLimit(CurrentRGB.G, -vv, 0, 255), AddLimit(CurrentRGB.B, vw, 0, 255));
         }
 
         private void UpdateVariationsHSV()
         {
             double vv = 10;
 
-            vHSV[0] = HsvVariation(hsv, -vv, vv);
-            vHSV[1] = HsvVariation(hsv, 0, vv);
-            vHSV[2] = HsvVariation(hsv, vv, vv);
-            vHSV[3] = HsvVariation(hsv, -vv, 0);
-            vHSV[4] = hsv.ToRGB();
-            vHSV[5] = HsvVariation(hsv, vv, 0);
-            vHSV[6] = HsvVariation(hsv, -vv, -vv);
-            vHSV[7] = HsvVariation(hsv, 0, -vv);
-            vHSV[8] = HsvVariation(hsv, vv, -vv);
+            VariationsHSV[0] = HsvVariation(CurrentHSV, -vv, vv);
+            VariationsHSV[1] = HsvVariation(CurrentHSV, 0, vv);
+            VariationsHSV[2] = HsvVariation(CurrentHSV, vv, vv);
+            VariationsHSV[3] = HsvVariation(CurrentHSV, -vv, 0);
+            VariationsHSV[4] = CurrentHSV.ToRGB();
+            VariationsHSV[5] = HsvVariation(CurrentHSV, vv, 0);
+            VariationsHSV[6] = HsvVariation(CurrentHSV, -vv, -vv);
+            VariationsHSV[7] = HsvVariation(CurrentHSV, 0, -vv);
+            VariationsHSV[8] = HsvVariation(CurrentHSV, vv, -vv);
         }
 
         private void UpdateVariations()
         {
-            UpdateVariationsRGB();
-            UpdateVariationsHSV();
+            rgbvar1.Fill = new SolidColorBrush(ColorExtensions.ToColor(VariationsRGB[0]));
+            rgbvar2.Fill = new SolidColorBrush(ColorExtensions.ToColor(VariationsRGB[1]));
+            rgbvar3.Fill = new SolidColorBrush(ColorExtensions.ToColor(VariationsRGB[2]));
+            rgbvar4.Fill = new SolidColorBrush(ColorExtensions.ToColor(VariationsRGB[3]));
+            rgbvar5.Fill = new SolidColorBrush(ColorExtensions.ToColor(VariationsRGB[4]));
+            rgbvar6.Fill = new SolidColorBrush(ColorExtensions.ToColor(VariationsRGB[5]));
+            rgbvar7.Fill = new SolidColorBrush(ColorExtensions.ToColor(VariationsRGB[6]));
 
-            rgbvar1.Fill = new SolidColorBrush(ColorExtensions.ToColor(vRGB[0]));
-            rgbvar2.Fill = new SolidColorBrush(ColorExtensions.ToColor(vRGB[1]));
-            rgbvar3.Fill = new SolidColorBrush(ColorExtensions.ToColor(vRGB[2]));
-            rgbvar4.Fill = new SolidColorBrush(ColorExtensions.ToColor(vRGB[3]));
-            rgbvar5.Fill = new SolidColorBrush(ColorExtensions.ToColor(vRGB[4]));
-            rgbvar6.Fill = new SolidColorBrush(ColorExtensions.ToColor(vRGB[5]));
-            rgbvar7.Fill = new SolidColorBrush(ColorExtensions.ToColor(vRGB[6]));
-
-            hsvvar1.Fill = new SolidColorBrush(ColorExtensions.ToColor(vHSV[0]));
-            hsvvar2.Fill = new SolidColorBrush(ColorExtensions.ToColor(vHSV[1]));
-            hsvvar3.Fill = new SolidColorBrush(ColorExtensions.ToColor(vHSV[2]));
-            hsvvar4.Fill = new SolidColorBrush(ColorExtensions.ToColor(vHSV[3]));
-            hsvvar5.Fill = new SolidColorBrush(ColorExtensions.ToColor(vHSV[4]));
-            hsvvar6.Fill = new SolidColorBrush(ColorExtensions.ToColor(vHSV[5]));
-            hsvvar7.Fill = new SolidColorBrush(ColorExtensions.ToColor(vHSV[6]));
-            hsvvar8.Fill = new SolidColorBrush(ColorExtensions.ToColor(vHSV[7]));
-            hsvvar9.Fill = new SolidColorBrush(ColorExtensions.ToColor(vHSV[8]));
+            hsvvar1.Fill = new SolidColorBrush(ColorExtensions.ToColor(VariationsHSV[0]));
+            hsvvar2.Fill = new SolidColorBrush(ColorExtensions.ToColor(VariationsHSV[1]));
+            hsvvar3.Fill = new SolidColorBrush(ColorExtensions.ToColor(VariationsHSV[2]));
+            hsvvar4.Fill = new SolidColorBrush(ColorExtensions.ToColor(VariationsHSV[3]));
+            hsvvar5.Fill = new SolidColorBrush(ColorExtensions.ToColor(VariationsHSV[4]));
+            hsvvar6.Fill = new SolidColorBrush(ColorExtensions.ToColor(VariationsHSV[5]));
+            hsvvar7.Fill = new SolidColorBrush(ColorExtensions.ToColor(VariationsHSV[6]));
+            hsvvar8.Fill = new SolidColorBrush(ColorExtensions.ToColor(VariationsHSV[7]));
+            hsvvar9.Fill = new SolidColorBrush(ColorExtensions.ToColor(VariationsHSV[8]));
         }
 
         private void HandleSliderValueChangedRGB()
         {
-            rgb.R = sliderR.Value;
-            rgb.G = sliderG.Value;
-            rgb.B = sliderB.Value;
+            CurrentRGB.R = sliderR.Value;
+            CurrentRGB.G = sliderG.Value;
+            CurrentRGB.B = sliderB.Value;
 
-            hsv = rgb.ToHSV();
-            rgb = hsv.ToRGB();
+            CurrentHSV = CurrentRGB.ToHSV();
+            CurrentRGB = CurrentHSV.ToRGB();
 
-            updatingSliders = true;
+            _updatingSliders = true;
             UpdateSliderHSV();
-            updatingSliders = false;
+            _updatingSliders = false;
 
-            blend = CurrentAlgorithm.Match(hsv);
+            CurrentBlend = CurrentAlgorithm.Match(CurrentHSV);
             UpdateSwatches();
+            UpdateVariationsRGB();
+            UpdateVariationsHSV();
             UpdateVariations();
         }
 
         private void HandleSliderValueChangedHSV()
         {
-            hsv.H = sliderH.Value;
-            hsv.S = sliderS.Value;
-            hsv.V = sliderV.Value;
+            CurrentHSV.H = sliderH.Value;
+            CurrentHSV.S = sliderS.Value;
+            CurrentHSV.V = sliderV.Value;
 
-            rgb = hsv.ToRGB();
+            CurrentRGB = CurrentHSV.ToRGB();
 
-            updatingSliders = true;
+            _updatingSliders = true;
             UpdateSliderRGB();
-            updatingSliders = false;
+            _updatingSliders = false;
 
-            blend = CurrentAlgorithm.Match(hsv);
+            CurrentBlend = CurrentAlgorithm.Match(CurrentHSV);
             UpdateSwatches();
+            UpdateVariationsRGB();
+            UpdateVariationsHSV();
             UpdateVariations();
         }
     }
