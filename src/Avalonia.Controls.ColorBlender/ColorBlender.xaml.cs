@@ -12,23 +12,13 @@ namespace Avalonia.Controls.ColorBlender
     public partial class ColorBlender : UserControl
     {
         private bool _updatingSliders = false;
-        private ColorMatch _vm;
 
         public ColorBlender()
         {
             this.InitializeComponent();
             this.InitializeNames();
-
-            _vm = new ColorMatch(213, 46, 49);
-
-            DataContext = _vm;
-
-            UpdateVariations();
-            UpdateSwatches();
-            UpdateSliderRGB();
-            UpdateSliderHSV();
-
             this.InitializeEventHandlers();
+            this.AttachedToVisualTree += UserControl_AttachedToVisualTree;
         }
 
         private void InitializeComponent()
@@ -36,44 +26,64 @@ namespace Avalonia.Controls.ColorBlender
             AvaloniaXamlLoader.Load(this);
         }
 
+        private void UserControl_AttachedToVisualTree(object sender, VisualTreeAttachmentEventArgs e)
+        {
+            UpdateVariations();
+            UpdateSwatches();
+            UpdateSliderRGB();
+            UpdateSliderHSV();
+        }
+
         private void UpdateVariations()
         {
-            rgbvar1.Fill = _vm.VariationsRGB[0].ToSolidColorBrush();
-            rgbvar2.Fill = _vm.VariationsRGB[1].ToSolidColorBrush();
-            rgbvar3.Fill = _vm.VariationsRGB[2].ToSolidColorBrush();
-            rgbvar4.Fill = _vm.VariationsRGB[3].ToSolidColorBrush();
-            rgbvar5.Fill = _vm.VariationsRGB[4].ToSolidColorBrush();
-            rgbvar6.Fill = _vm.VariationsRGB[5].ToSolidColorBrush();
-            rgbvar7.Fill = _vm.VariationsRGB[6].ToSolidColorBrush();
+            var vm = DataContext as ColorMatch;
+            if (vm != null)
+            {
+                rgbvar1.Fill = vm.VariationsRGB[0].ToSolidColorBrush();
+                rgbvar2.Fill = vm.VariationsRGB[1].ToSolidColorBrush();
+                rgbvar3.Fill = vm.VariationsRGB[2].ToSolidColorBrush();
+                rgbvar4.Fill = vm.VariationsRGB[3].ToSolidColorBrush();
+                rgbvar5.Fill = vm.VariationsRGB[4].ToSolidColorBrush();
+                rgbvar6.Fill = vm.VariationsRGB[5].ToSolidColorBrush();
+                rgbvar7.Fill = vm.VariationsRGB[6].ToSolidColorBrush();
 
-            hsvvar1.Fill = _vm.VariationsHSV[0].ToSolidColorBrush();
-            hsvvar2.Fill = _vm.VariationsHSV[1].ToSolidColorBrush();
-            hsvvar3.Fill = _vm.VariationsHSV[2].ToSolidColorBrush();
-            hsvvar4.Fill = _vm.VariationsHSV[3].ToSolidColorBrush();
-            hsvvar5.Fill = _vm.VariationsHSV[4].ToSolidColorBrush();
-            hsvvar6.Fill = _vm.VariationsHSV[5].ToSolidColorBrush();
-            hsvvar7.Fill = _vm.VariationsHSV[6].ToSolidColorBrush();
-            hsvvar8.Fill = _vm.VariationsHSV[7].ToSolidColorBrush();
-            hsvvar9.Fill = _vm.VariationsHSV[8].ToSolidColorBrush();
+                hsvvar1.Fill = vm.VariationsHSV[0].ToSolidColorBrush();
+                hsvvar2.Fill = vm.VariationsHSV[1].ToSolidColorBrush();
+                hsvvar3.Fill = vm.VariationsHSV[2].ToSolidColorBrush();
+                hsvvar4.Fill = vm.VariationsHSV[3].ToSolidColorBrush();
+                hsvvar5.Fill = vm.VariationsHSV[4].ToSolidColorBrush();
+                hsvvar6.Fill = vm.VariationsHSV[5].ToSolidColorBrush();
+                hsvvar7.Fill = vm.VariationsHSV[6].ToSolidColorBrush();
+                hsvvar8.Fill = vm.VariationsHSV[7].ToSolidColorBrush();
+                hsvvar9.Fill = vm.VariationsHSV[8].ToSolidColorBrush();
+            }
         }
 
         private void UpdateSwatches()
         {
-            swatch1.col.Fill = _vm.CurrentBlend.Colors[0].ToSolidColorBrush();
-            swatch2.col.Fill = _vm.CurrentBlend.Colors[1].ToSolidColorBrush();
-            swatch3.col.Fill = _vm.CurrentBlend.Colors[2].ToSolidColorBrush();
-            swatch4.col.Fill = _vm.CurrentBlend.Colors[3].ToSolidColorBrush();
-            swatch5.col.Fill = _vm.CurrentBlend.Colors[4].ToSolidColorBrush();
-            swatch6.col.Fill = _vm.CurrentBlend.Colors[5].ToSolidColorBrush();
+            var vm = DataContext as ColorMatch;
+            if (vm != null)
+            {
+                swatch1.col.Fill = vm.CurrentBlend.Colors[0].ToSolidColorBrush();
+                swatch2.col.Fill = vm.CurrentBlend.Colors[1].ToSolidColorBrush();
+                swatch3.col.Fill = vm.CurrentBlend.Colors[2].ToSolidColorBrush();
+                swatch4.col.Fill = vm.CurrentBlend.Colors[3].ToSolidColorBrush();
+                swatch5.col.Fill = vm.CurrentBlend.Colors[4].ToSolidColorBrush();
+                swatch6.col.Fill = vm.CurrentBlend.Colors[5].ToSolidColorBrush();
+            }
         }
 
         private void UpdateSliderRGB()
         {
             _updatingSliders = true;
 
-            sliderR.Value = _vm.CurrentRGB.R;
-            sliderG.Value = _vm.CurrentRGB.G;
-            sliderB.Value = _vm.CurrentRGB.B;
+            var vm = DataContext as ColorMatch;
+            if (vm != null)
+            {
+                sliderR.Value = vm.CurrentRGB.R;
+                sliderG.Value = vm.CurrentRGB.G;
+                sliderB.Value = vm.CurrentRGB.B;
+            }
 
             _updatingSliders = false;
         }
@@ -82,9 +92,13 @@ namespace Avalonia.Controls.ColorBlender
         {
             _updatingSliders = true;
 
-            sliderH.Value = _vm.CurrentHSV.H;
-            sliderS.Value = _vm.CurrentHSV.S;
-            sliderV.Value = _vm.CurrentHSV.V;
+            var vm = DataContext as ColorMatch;
+            if (vm != null)
+            {
+                sliderH.Value = vm.CurrentHSV.H;
+                sliderS.Value = vm.CurrentHSV.S;
+                sliderV.Value = vm.CurrentHSV.V;
+            }
 
             _updatingSliders = false;
         }
@@ -128,7 +142,11 @@ namespace Avalonia.Controls.ColorBlender
 
         private void Algorithm_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _vm.Update();
+            var vm = DataContext as ColorMatch;
+            if (vm != null)
+            {
+                vm.Update();
+            }
 
             UpdateVariations();
             UpdateSwatches();
@@ -157,10 +175,14 @@ namespace Avalonia.Controls.ColorBlender
 
         private void HandleRectangleClick(SolidColorBrush b)
         {
-            _vm.CurrentRGB = b.Color.ToRGB();
-            _vm.CurrentHSV = _vm.CurrentRGB.ToHSV();
+            var vm = DataContext as ColorMatch;
+            if (vm != null)
+            {
+                vm.CurrentRGB = b.Color.ToRGB();
+                vm.CurrentHSV = vm.CurrentRGB.ToHSV();
 
-            _vm.Update();
+                vm.Update();
+            }
 
             UpdateVariations();
             UpdateSwatches();
@@ -170,13 +192,17 @@ namespace Avalonia.Controls.ColorBlender
 
         private void HandleSliderValueChangedRGB()
         {
-            _vm.CurrentRGB.R = sliderR.Value;
-            _vm.CurrentRGB.G = sliderG.Value;
-            _vm.CurrentRGB.B = sliderB.Value;
-            _vm.CurrentHSV = _vm.CurrentRGB.ToHSV();
-            _vm.CurrentRGB = _vm.CurrentHSV.ToRGB();
+            var vm = DataContext as ColorMatch;
+            if (vm != null)
+            {
+                vm.CurrentRGB.R = sliderR.Value;
+                vm.CurrentRGB.G = sliderG.Value;
+                vm.CurrentRGB.B = sliderB.Value;
+                vm.CurrentHSV = vm.CurrentRGB.ToHSV();
+                vm.CurrentRGB = vm.CurrentHSV.ToRGB();
 
-            _vm.Update();
+                vm.Update();
+            }
 
             UpdateVariations();
             UpdateSwatches();
@@ -185,12 +211,16 @@ namespace Avalonia.Controls.ColorBlender
 
         private void HandleSliderValueChangedHSV()
         {
-            _vm.CurrentHSV.H = sliderH.Value;
-            _vm.CurrentHSV.S = sliderS.Value;
-            _vm.CurrentHSV.V = sliderV.Value;
-            _vm.CurrentRGB = _vm.CurrentHSV.ToRGB();
+            var vm = DataContext as ColorMatch;
+            if (vm != null)
+            {
+                vm.CurrentHSV.H = sliderH.Value;
+                vm.CurrentHSV.S = sliderS.Value;
+                vm.CurrentHSV.V = sliderV.Value;
+                vm.CurrentRGB = vm.CurrentHSV.ToRGB();
 
-            _vm.Update();
+                vm.Update();
+            }
 
             UpdateVariations();
             UpdateSwatches();

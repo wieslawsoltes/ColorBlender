@@ -3,6 +3,7 @@
 using Avalonia;
 using Avalonia.Logging.Serilog;
 using Avalonia.Markup.Xaml;
+using ColorBlender;
 using Serilog;
 
 namespace ColorBlenderAvalonia
@@ -14,7 +15,7 @@ namespace ColorBlenderAvalonia
             InitializeLogging();
             AppBuilder.Configure<App>()
                 .UsePlatformDetect()
-                .Start<MainWindow>();
+                .Start<MainWindow>(() => new ColorMatch(213, 46, 49));
         }
 
         static void InitializeLogging()
