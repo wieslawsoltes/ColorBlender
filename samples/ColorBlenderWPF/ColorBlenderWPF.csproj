@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ColorBlenderWPF</RootNamespace>
     <AssemblyName>ColorBlenderWPF</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -58,12 +58,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Controls\Swatch.xaml.cs">
-      <DependentUpon>Swatch.xaml</DependentUpon>
-    </Compile>
-    <Page Include="Controls\ColorBlender.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -72,18 +66,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Controls\ColorBlender.xaml.cs">
-      <DependentUpon>ColorBlender.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ColorExtensions.cs" />
-    <Compile Include="Controls\HtmlColorConverter.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Controls\Swatch.xaml">
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -96,6 +82,10 @@
     <ProjectReference Include="..\..\src\ColorBlender\ColorBlender.csproj">
       <Project>{b52c44ba-d099-42e8-94a7-5234e08480fd}</Project>
       <Name>ColorBlender</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\WPF.Controls.ColorBlender\WPF.Controls.ColorBlender.csproj">
+      <Project>{f01508bb-c309-48ec-b7bc-e8f05a1c2885}</Project>
+      <Name>WPF.Controls.ColorBlender</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

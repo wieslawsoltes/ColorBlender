@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ColorBlender.UnitTests", "t
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Avalonia.Controls.ColorBlender", "src\Avalonia.Controls.ColorBlender\Avalonia.Controls.ColorBlender.csproj", "{7EF0D71E-080B-489D-A56B-1C219386EE0A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF.Controls.ColorBlender", "src\WPF.Controls.ColorBlender\WPF.Controls.ColorBlender.csproj", "{F01508BB-C309-48EC-B7BC-E8F05A1C2885}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{7EF0D71E-080B-489D-A56B-1C219386EE0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7EF0D71E-080B-489D-A56B-1C219386EE0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7EF0D71E-080B-489D-A56B-1C219386EE0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F01508BB-C309-48EC-B7BC-E8F05A1C2885}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F01508BB-C309-48EC-B7BC-E8F05A1C2885}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F01508BB-C309-48EC-B7BC-E8F05A1C2885}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F01508BB-C309-48EC-B7BC-E8F05A1C2885}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +61,7 @@ Global
 		{D6EC3C00-F0B9-4531-9563-3487B7ED3512} = {D57E2975-0E47-4153-B3ED-3C4D0252EB22}
 		{81B01D79-7142-4C77-84FC-26FAACC0D308} = {9B03B35A-F57E-4BCB-9990-36FB6D1E8787}
 		{7EF0D71E-080B-489D-A56B-1C219386EE0A} = {BE9A54A0-F80F-43A7-90F4-98A147169F9B}
+		{F01508BB-C309-48EC-B7BC-E8F05A1C2885} = {BE9A54A0-F80F-43A7-90F4-98A147169F9B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5C5DD029-8617-4D20-829C-DA0F7E582C6E}

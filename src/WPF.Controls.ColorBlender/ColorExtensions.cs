@@ -4,7 +4,7 @@ using System;
 using System.Windows.Media;
 using ColorBlender;
 
-namespace ColorBlenderWPF.Controls
+namespace WPF.Controls.ColorBlender
 {
     public static class ColorExtensions
     {
