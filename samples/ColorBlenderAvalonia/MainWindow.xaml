@@ -7,6 +7,6 @@
         Title="ColorBlender .NET"
         Width="800" Height="480"
         Background="White"
-        SnapsToDevicePixels="True">
+        UseLayoutRounding="True">
     <cb:ColorBlender/>
 </Window>
