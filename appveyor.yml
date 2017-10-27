@@ -1,3 +1,5 @@
+environment:
+  APPVEYOR_BLOCK_DOTNETCORE_TESTS_AUTORUN: true
 version: '{build}'
 image: Visual Studio 2017
 configuration: Release
