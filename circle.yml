@@ -11,6 +11,8 @@ jobs:
       - checkout
       - run: dotnet restore src/ColorBlender
       - run: dotnet build src/ColorBlender/ColorBlender.csproj -f netstandard2.0
+      - run: dotnet restore tests/ColorBlender.UnitTests
+      - run: dotnet test tests/ColorBlender.UnitTests/ColorBlender.UnitTests.csproj -c Release -f netcoreapp2.0
       - run: dotnet restore samples/ColorBlenderAvalonia
       - run: dotnet build samples/ColorBlenderAvalonia/ColorBlenderAvalonia.csproj -f netcoreapp2.0
     notify:
