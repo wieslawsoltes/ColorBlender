@@ -9,5 +9,6 @@ install:
 before_build:
 - cmd: nuget restore
 build:
+  parallel: true
   project: ColorBlender.sln
   verbosity: minimal
