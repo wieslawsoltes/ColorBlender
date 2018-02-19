@@ -11,6 +11,8 @@ namespace ColorBlenderAvalonia
 {
     public class App : Application
     {
+        public static ColorMatch Design { get; } = new ColorMatch(213, 46, 49);
+
         static void Print(Exception ex)
         {
             Console.WriteLine(ex.Message);

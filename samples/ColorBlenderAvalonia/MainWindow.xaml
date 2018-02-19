@@ -3,10 +3,11 @@
 <Window x:Class="ColorBlenderAvalonia.MainWindow"
         xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:ColorBlenderAvalonia;assembly=ColorBlenderAvalonia"
         xmlns:cb="clr-namespace:Avalonia.Controls.ColorBlender;assembly=Avalonia.Controls.ColorBlender"
         Title="ColorBlender .NET"
-        Width="800" Height="480"
-        Background="White"
-        UseLayoutRounding="True">
+        Width="800" Height="480" Background="White" UseLayoutRounding="True"
+        Design.DataContext="{x:Static local:App.Design}"
+        Design.Width="800" Design.Height="480">
     <cb:ColorBlender/>
 </Window>
