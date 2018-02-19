@@ -21,29 +21,21 @@ namespace ColorBlenderAvalonia
             }
         }
 
+        public static AppBuilder BuildAvaloniaApp()
+            => AppBuilder.Configure<App>()
+                         .UsePlatformDetect()
+                         .LogToDebug();
+
         static void Main(string[] args)
         {
             try
             {
-                InitializeLogging();
-                AppBuilder.Configure<App>()
-                    .UsePlatformDetect()
-                    .Start<MainWindow>(() => new ColorMatch(213, 46, 49));
+                BuildAvaloniaApp().Start<MainWindow>(() => new ColorMatch(213, 46, 49));
             }
             catch (Exception ex)
             {
                 Print(ex);
             }
-        }
-
-        static void InitializeLogging()
-        {
-#if DEBUG
-            SerilogLogger.Initialize(new LoggerConfiguration()
-                .MinimumLevel.Warning()
-                .WriteTo.Trace(outputTemplate: "{Area}: {Message}")
-                .CreateLogger());
-#endif
         }
 
         public override void Initialize()
