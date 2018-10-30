@@ -13,7 +13,7 @@
     <Authors>Wiesław Šoltés</Authors>
     <Company>Wiesław Šoltés</Company>
     <Description>A sample Avalonia application for .NET library for color matching and palette design.</Description>
-    <Copyright>Copyright © Wiesław Šoltés 2017</Copyright>
+    <Copyright>Copyright © Wiesław Šoltés 2018</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
