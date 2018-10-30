@@ -30,6 +30,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ci", "ci", "{638657F5-4F59-4781-8A7E-295F82D6C905}"
 	ProjectSection(SolutionItems) = preProject
 		.travis.yml = .travis.yml
+		_config.yml = _config.yml
 		appveyor.yml = appveyor.yml
 		azure-pipelines.yml = azure-pipelines.yml
 		circle.yml = circle.yml
