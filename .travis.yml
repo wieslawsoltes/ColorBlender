@@ -8,7 +8,7 @@ env:
 sudo: required
 mono:
   - latest
-dotnet: 2.0.0
+dotnet: 2.1.401
 script:
   - dotnet restore src/ColorBlender
   - dotnet build src/ColorBlender/ColorBlender.csproj -f netstandard2.0
