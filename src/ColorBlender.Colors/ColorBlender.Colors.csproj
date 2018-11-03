@@ -9,15 +9,11 @@
     <Version>0.3.0</Version>
     <Authors>Wiesław Šoltés</Authors>
     <Company>Wiesław Šoltés</Company>
-    <Description>A .NET library for color matching and palette design.</Description>
+    <Description>A .NET library with basic color types.</Description>
     <Copyright>Copyright © Wiesław Šoltés 2018</Copyright>
     <PackageLicenseUrl>https://github.com/wieslawsoltes/ColorBlender/blob/master/LICENSE.TXT</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/wieslawsoltes/ColorBlender</PackageProjectUrl>
-    <PackageTags>color;colorblender;palette;design;colors;hsv;rgb</PackageTags>
+    <PackageTags>color;colors;hsv;rgb</PackageTags>
   </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\ColorBlender.Colors\ColorBlender.Colors.csproj" />
-  </ItemGroup>
 
 </Project>

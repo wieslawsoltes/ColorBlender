@@ -67,6 +67,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ColorBlender.Colors\ColorBlender.Colors.csproj">
+      <Project>{225ba82d-b228-44d0-b8ba-2c5462394f2c}</Project>
+      <Name>ColorBlender.Colors</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ColorBlender\ColorBlender.csproj">
       <Project>{b52c44ba-d099-42e8-94a7-5234e08480fd}</Project>
       <Name>ColorBlender</Name>

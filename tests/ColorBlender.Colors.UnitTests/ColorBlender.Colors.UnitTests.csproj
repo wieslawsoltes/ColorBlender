@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\ColorBlender.Colors\ColorBlender.Colors.csproj" />
-    <ProjectReference Include="..\..\src\ColorBlender\ColorBlender.csproj" />
   </ItemGroup>
 
 </Project>

@@ -3,7 +3,7 @@
 using ColorBlender.Colors;
 using Xunit;
 
-namespace ColorBlender.UnitTests
+namespace ColorBlender.Colors.UnitTests
 {
     public class HSVTests
     {

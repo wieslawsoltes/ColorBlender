@@ -35,6 +35,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Avalonia.Controls.ColorBlender\Avalonia.Controls.ColorBlender.csproj" />
+    <ProjectReference Include="..\..\src\ColorBlender.Colors\ColorBlender.Colors.csproj" />
     <ProjectReference Include="..\..\src\ColorBlender\ColorBlender.csproj" />
   </ItemGroup>
 

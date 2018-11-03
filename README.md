@@ -51,6 +51,7 @@ You can install the package like this:
 ```C#
 using System;
 using ColorBlender;
+using ColorBlender.Colors;
 using ColorBlender.Algorithms;
 
 namespace ColorBlenderConsole
