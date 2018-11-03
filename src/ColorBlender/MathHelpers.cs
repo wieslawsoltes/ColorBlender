@@ -8,8 +8,18 @@ namespace ColorBlender
     {
         public static double RC(double x, double m)
         {
-            if (x > m) { return m; }
-            if (x < 0) { return 0; } else { return x; }
+            if (x > m)
+            {
+                return m;
+            }
+            if (x < 0)
+            {
+                return 0;
+            }
+            else
+            {
+                return x;
+            }
         }
 
         public static double HueToWheel(double h)
