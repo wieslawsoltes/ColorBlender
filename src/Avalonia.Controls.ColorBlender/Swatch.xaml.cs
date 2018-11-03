@@ -7,25 +7,18 @@ namespace Avalonia.Controls.ColorBlender
 {
     public partial class Swatch : UserControl
     {
+        public Rectangle col;
+
         public Swatch()
         {
             this.InitializeComponent();
-            this.InitializeNames();
+
+            col = this.FindControl<Rectangle>("col");
         }
 
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
-        }
-    }
-
-    public partial class Swatch : UserControl
-    {
-        public Rectangle col;
-
-        private void InitializeNames()
-        {
-            col = this.FindControl<Rectangle>("col");
         }
     }
 }
