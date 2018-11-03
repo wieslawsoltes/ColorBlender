@@ -5,7 +5,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using ColorBlender;
 
 namespace WPF.Controls.ColorBlender
 {
@@ -16,7 +15,41 @@ namespace WPF.Controls.ColorBlender
         public ColorBlender()
         {
             this.InitializeComponent();
-            this.InitializeEventHandlers();
+
+            sliderR.ValueChanged += SliderRGB_ValueChanged;
+            sliderG.ValueChanged += SliderRGB_ValueChanged;
+            sliderB.ValueChanged += SliderRGB_ValueChanged;
+            sliderH.ValueChanged += SliderHSV_ValueChanged;
+            sliderS.ValueChanged += SliderHSV_ValueChanged;
+            sliderV.ValueChanged += SliderHSV_ValueChanged;
+
+            rgbvar1.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
+            rgbvar2.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
+            rgbvar3.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
+            rgbvar4.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
+            rgbvar5.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
+            rgbvar6.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
+            rgbvar7.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
+
+            hsvvar1.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
+            hsvvar2.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
+            hsvvar3.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
+            hsvvar4.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
+            hsvvar5.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
+            hsvvar6.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
+            hsvvar7.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
+            hsvvar8.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
+            hsvvar9.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
+
+            swatch1.col.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
+            swatch2.col.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
+            swatch3.col.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
+            swatch4.col.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
+            swatch5.col.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
+            swatch6.col.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
+
+            algorithm.SelectionChanged += Algorithm_SelectionChanged;
+
             this.Loaded += UserControl_Loaded;
         }
 
@@ -95,43 +128,6 @@ namespace WPF.Controls.ColorBlender
             }
 
             _updatingSliders = false;
-        }
-
-        private void InitializeEventHandlers()
-        {
-            sliderR.ValueChanged += SliderRGB_ValueChanged;
-            sliderG.ValueChanged += SliderRGB_ValueChanged;
-            sliderB.ValueChanged += SliderRGB_ValueChanged;
-            sliderH.ValueChanged += SliderHSV_ValueChanged;
-            sliderS.ValueChanged += SliderHSV_ValueChanged;
-            sliderV.ValueChanged += SliderHSV_ValueChanged;
-
-            rgbvar1.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
-            rgbvar2.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
-            rgbvar3.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
-            rgbvar4.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
-            rgbvar5.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
-            rgbvar6.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
-            rgbvar7.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
-
-            hsvvar1.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
-            hsvvar2.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
-            hsvvar3.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
-            hsvvar4.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
-            hsvvar5.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
-            hsvvar6.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
-            hsvvar7.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
-            hsvvar8.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
-            hsvvar9.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
-
-            swatch1.col.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
-            swatch2.col.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
-            swatch3.col.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
-            swatch4.col.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
-            swatch5.col.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
-            swatch6.col.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
-
-            algorithm.SelectionChanged += Algorithm_SelectionChanged;
         }
 
         private void Algorithm_SelectionChanged(object sender, SelectionChangedEventArgs e)
