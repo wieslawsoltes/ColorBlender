@@ -5,6 +5,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using ColorBlender;
+using ColorBlender.Colors;
 
 namespace WPF.Controls.ColorBlender
 {
@@ -185,9 +187,10 @@ namespace WPF.Controls.ColorBlender
             var vm = DataContext as ColorMatch;
             if (vm != null)
             {
-                vm.CurrentRGB.R = sliderR.Value;
-                vm.CurrentRGB.G = sliderG.Value;
-                vm.CurrentRGB.B = sliderB.Value;
+                vm.CurrentRGB = new RGB(
+                    sliderR.Value,
+                    sliderG.Value,
+                    sliderB.Value);
 
                 vm.CurrentHSV = vm.CurrentRGB.ToHSV();
                 vm.CurrentRGB = vm.CurrentHSV.ToRGB();
@@ -205,9 +208,10 @@ namespace WPF.Controls.ColorBlender
             var vm = DataContext as ColorMatch;
             if (vm != null)
             {
-                vm.CurrentHSV.H = sliderH.Value;
-                vm.CurrentHSV.S = sliderS.Value;
-                vm.CurrentHSV.V = sliderV.Value;
+                vm.CurrentHSV = new HSV(
+                    sliderH.Value,
+                    sliderS.Value,
+                    sliderV.Value);
 
                 vm.CurrentRGB = vm.CurrentHSV.ToRGB();
 
