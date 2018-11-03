@@ -2,11 +2,11 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 using System;
 using Avalonia.Media;
-using ColorBlender;
+using ColorBlender.Colors;
 
 namespace Avalonia.Controls.ColorBlender
 {
-    public static class ColorExtensions
+    public static class Extensions
     {
         public static RGB ToRGB(this Color c)
         {
