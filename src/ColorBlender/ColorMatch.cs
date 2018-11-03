@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using ColorBlender.Algorithms;
+using ColorBlender.Colors;
 
 namespace ColorBlender
 {
@@ -52,29 +53,19 @@ namespace ColorBlender
         private double AddLimit(double x, double d, double min, double max)
         {
             x = x + d;
-            if (x < min) return min;
-            if (x > max) return max;
-            if ((x >= min) && (x <= max)) return x;
+            if (x < min)
+                return min;
+            if (x > max)
+                return max;
+            if ((x >= min) && (x <= max))
+                return x;
 
             return double.NaN;
         }
 
         private RGB HsvVariation(HSV hsv, double addsat, double addval)
         {
-            var rgbobj = new RGB();
-            var hsvobj = new HSV
-            {
-                H = hsv.H,
-                S = hsv.S,
-                V = hsv.V
-            };
-
-            hsvobj.S = AddLimit(hsvobj.S, addsat, 0, 99);
-            hsvobj.V = AddLimit(hsvobj.V, addval, 0, 99);
-
-            rgbobj = hsvobj.ToRGB();
-
-            return rgbobj;
+            return new HSV(hsv.H, AddLimit(hsv.S, addsat, 0, 99), AddLimit(hsv.V, addval, 0, 99)).ToRGB();
         }
 
         public void UpdateVariationsRGB()

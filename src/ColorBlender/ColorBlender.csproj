@@ -16,4 +16,8 @@
     <PackageTags>color;colorblender;palette;design;colors;hsv;rgb</PackageTags>
   </PropertyGroup>
 
+  <!--<ItemGroup Condition="$(TargetFramework.StartsWith('net4'))">
+    <PackageReference Include="System.ValueTuple" Version="4.3.1" />
+  </ItemGroup>-->
+
 </Project>
