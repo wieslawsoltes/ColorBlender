@@ -10,12 +10,7 @@ namespace WPF.Controls.ColorBlender
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            string color = "#";
-            foreach (byte val in values)
-            {
-                color += val.ToString("X2");
-            }
-            return color;
+            return $"#{((byte)values[0]).ToString("X2")}{((byte)values[1]).ToString("X2")}{((byte)values[2]).ToString("X2")}";
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
