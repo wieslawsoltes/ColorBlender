@@ -6,18 +6,111 @@ using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using ColorBlender;
+using ColorBlender.Colors;
 
 namespace Avalonia.Controls.ColorBlender
 {
     public partial class ColorBlender : UserControl
     {
+        public DropDown algorithm;
+        public Slider sliderR;
+        public Slider sliderG;
+        public Slider sliderB;
+        public Slider sliderH;
+        public Slider sliderS;
+        public Slider sliderV;
+        public Rectangle rgbvar1;
+        public Rectangle rgbvar2;
+        public Rectangle rgbvar3;
+        public Rectangle rgbvar4;
+        public Rectangle rgbvar5;
+        public Rectangle rgbvar6;
+        public Rectangle rgbvar7;
+        public Rectangle hsvvar1;
+        public Rectangle hsvvar2;
+        public Rectangle hsvvar3;
+        public Rectangle hsvvar4;
+        public Rectangle hsvvar5;
+        public Rectangle hsvvar6;
+        public Rectangle hsvvar7;
+        public Rectangle hsvvar8;
+        public Rectangle hsvvar9;
+        public Swatch swatch1;
+        public Swatch swatch2;
+        public Swatch swatch3;
+        public Swatch swatch4;
+        public Swatch swatch5;
+        public Swatch swatch6;
         private bool _updatingSliders = false;
 
         public ColorBlender()
         {
             this.InitializeComponent();
-            this.InitializeNames();
-            this.InitializeEventHandlers();
+
+            algorithm = this.FindControl<DropDown>("algorithm");
+            sliderR = this.FindControl<Slider>("sliderR");
+            sliderG = this.FindControl<Slider>("sliderG");
+            sliderB = this.FindControl<Slider>("sliderB");
+            sliderH = this.FindControl<Slider>("sliderH");
+            sliderS = this.FindControl<Slider>("sliderS");
+            sliderV = this.FindControl<Slider>("sliderV");
+            rgbvar1 = this.FindControl<Rectangle>("rgbvar1");
+            rgbvar2 = this.FindControl<Rectangle>("rgbvar2");
+            rgbvar3 = this.FindControl<Rectangle>("rgbvar3");
+            rgbvar4 = this.FindControl<Rectangle>("rgbvar4");
+            rgbvar5 = this.FindControl<Rectangle>("rgbvar5");
+            rgbvar6 = this.FindControl<Rectangle>("rgbvar6");
+            rgbvar7 = this.FindControl<Rectangle>("rgbvar7");
+            hsvvar1 = this.FindControl<Rectangle>("hsvvar1");
+            hsvvar2 = this.FindControl<Rectangle>("hsvvar2");
+            hsvvar3 = this.FindControl<Rectangle>("hsvvar3");
+            hsvvar4 = this.FindControl<Rectangle>("hsvvar4");
+            hsvvar5 = this.FindControl<Rectangle>("hsvvar5");
+            hsvvar6 = this.FindControl<Rectangle>("hsvvar6");
+            hsvvar7 = this.FindControl<Rectangle>("hsvvar7");
+            hsvvar8 = this.FindControl<Rectangle>("hsvvar8");
+            hsvvar9 = this.FindControl<Rectangle>("hsvvar9");
+            swatch1 = this.FindControl<Swatch>("swatch1");
+            swatch2 = this.FindControl<Swatch>("swatch2");
+            swatch3 = this.FindControl<Swatch>("swatch3");
+            swatch4 = this.FindControl<Swatch>("swatch4");
+            swatch5 = this.FindControl<Swatch>("swatch5");
+            swatch6 = this.FindControl<Swatch>("swatch6");
+
+            sliderR.GetObservable(Slider.ValueProperty).Subscribe(value => SliderRGB_ValueChanged());
+            sliderG.GetObservable(Slider.ValueProperty).Subscribe(value => SliderRGB_ValueChanged());
+            sliderB.GetObservable(Slider.ValueProperty).Subscribe(value => SliderRGB_ValueChanged());
+            sliderH.GetObservable(Slider.ValueProperty).Subscribe(value => SliderHSV_ValueChanged());
+            sliderS.GetObservable(Slider.ValueProperty).Subscribe(value => SliderHSV_ValueChanged());
+            sliderV.GetObservable(Slider.ValueProperty).Subscribe(value => SliderHSV_ValueChanged());
+
+            rgbvar1.PointerPressed += Rectangle_PointerPressed;
+            rgbvar2.PointerPressed += Rectangle_PointerPressed;
+            rgbvar3.PointerPressed += Rectangle_PointerPressed;
+            rgbvar4.PointerPressed += Rectangle_PointerPressed;
+            rgbvar5.PointerPressed += Rectangle_PointerPressed;
+            rgbvar6.PointerPressed += Rectangle_PointerPressed;
+            rgbvar7.PointerPressed += Rectangle_PointerPressed;
+
+            hsvvar1.PointerPressed += Rectangle_PointerPressed;
+            hsvvar2.PointerPressed += Rectangle_PointerPressed;
+            hsvvar3.PointerPressed += Rectangle_PointerPressed;
+            hsvvar4.PointerPressed += Rectangle_PointerPressed;
+            hsvvar5.PointerPressed += Rectangle_PointerPressed;
+            hsvvar6.PointerPressed += Rectangle_PointerPressed;
+            hsvvar7.PointerPressed += Rectangle_PointerPressed;
+            hsvvar8.PointerPressed += Rectangle_PointerPressed;
+            hsvvar9.PointerPressed += Rectangle_PointerPressed;
+
+            swatch1.col.PointerPressed += Rectangle_PointerPressed;
+            swatch2.col.PointerPressed += Rectangle_PointerPressed;
+            swatch3.col.PointerPressed += Rectangle_PointerPressed;
+            swatch4.col.PointerPressed += Rectangle_PointerPressed;
+            swatch5.col.PointerPressed += Rectangle_PointerPressed;
+            swatch6.col.PointerPressed += Rectangle_PointerPressed;
+
+            algorithm.SelectionChanged += Algorithm_SelectionChanged;
+
             this.AttachedToVisualTree += UserControl_AttachedToVisualTree;
         }
 
@@ -103,43 +196,6 @@ namespace Avalonia.Controls.ColorBlender
             _updatingSliders = false;
         }
 
-        private void InitializeEventHandlers()
-        {
-            sliderR.GetObservable(Slider.ValueProperty).Subscribe(value => SliderRGB_ValueChanged());
-            sliderG.GetObservable(Slider.ValueProperty).Subscribe(value => SliderRGB_ValueChanged());
-            sliderB.GetObservable(Slider.ValueProperty).Subscribe(value => SliderRGB_ValueChanged());
-            sliderH.GetObservable(Slider.ValueProperty).Subscribe(value => SliderHSV_ValueChanged());
-            sliderS.GetObservable(Slider.ValueProperty).Subscribe(value => SliderHSV_ValueChanged());
-            sliderV.GetObservable(Slider.ValueProperty).Subscribe(value => SliderHSV_ValueChanged());
-
-            rgbvar1.PointerPressed += Rectangle_PointerPressed;
-            rgbvar2.PointerPressed += Rectangle_PointerPressed;
-            rgbvar3.PointerPressed += Rectangle_PointerPressed;
-            rgbvar4.PointerPressed += Rectangle_PointerPressed;
-            rgbvar5.PointerPressed += Rectangle_PointerPressed;
-            rgbvar6.PointerPressed += Rectangle_PointerPressed;
-            rgbvar7.PointerPressed += Rectangle_PointerPressed;
-
-            hsvvar1.PointerPressed += Rectangle_PointerPressed;
-            hsvvar2.PointerPressed += Rectangle_PointerPressed;
-            hsvvar3.PointerPressed += Rectangle_PointerPressed;
-            hsvvar4.PointerPressed += Rectangle_PointerPressed;
-            hsvvar5.PointerPressed += Rectangle_PointerPressed;
-            hsvvar6.PointerPressed += Rectangle_PointerPressed;
-            hsvvar7.PointerPressed += Rectangle_PointerPressed;
-            hsvvar8.PointerPressed += Rectangle_PointerPressed;
-            hsvvar9.PointerPressed += Rectangle_PointerPressed;
-
-            swatch1.col.PointerPressed += Rectangle_PointerPressed;
-            swatch2.col.PointerPressed += Rectangle_PointerPressed;
-            swatch3.col.PointerPressed += Rectangle_PointerPressed;
-            swatch4.col.PointerPressed += Rectangle_PointerPressed;
-            swatch5.col.PointerPressed += Rectangle_PointerPressed;
-            swatch6.col.PointerPressed += Rectangle_PointerPressed;
-
-            algorithm.SelectionChanged += Algorithm_SelectionChanged;
-        }
-
         private void Algorithm_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var vm = DataContext as ColorMatch;
@@ -195,9 +251,7 @@ namespace Avalonia.Controls.ColorBlender
             var vm = DataContext as ColorMatch;
             if (vm != null)
             {
-                vm.CurrentRGB.R = sliderR.Value;
-                vm.CurrentRGB.G = sliderG.Value;
-                vm.CurrentRGB.B = sliderB.Value;
+                vm.CurrentRGB = new RGB(sliderR.Value, sliderG.Value, sliderB.Value);
                 vm.CurrentHSV = vm.CurrentRGB.ToHSV();
                 vm.CurrentRGB = vm.CurrentHSV.ToRGB();
 
@@ -214,9 +268,7 @@ namespace Avalonia.Controls.ColorBlender
             var vm = DataContext as ColorMatch;
             if (vm != null)
             {
-                vm.CurrentHSV.H = sliderH.Value;
-                vm.CurrentHSV.S = sliderS.Value;
-                vm.CurrentHSV.V = sliderV.Value;
+                vm.CurrentHSV = new HSV(sliderH.Value, sliderS.Value, sliderV.Value);
                 vm.CurrentRGB = vm.CurrentHSV.ToRGB();
 
                 vm.Update();
@@ -225,72 +277,6 @@ namespace Avalonia.Controls.ColorBlender
             UpdateVariations();
             UpdateSwatches();
             UpdateSliderRGB();
-        }
-    }
-
-    public partial class ColorBlender : UserControl
-    {
-        public DropDown algorithm;
-        public Slider sliderR;
-        public Slider sliderG;
-        public Slider sliderB;
-        public Slider sliderH;
-        public Slider sliderS;
-        public Slider sliderV;
-        public Rectangle rgbvar1;
-        public Rectangle rgbvar2;
-        public Rectangle rgbvar3;
-        public Rectangle rgbvar4;
-        public Rectangle rgbvar5;
-        public Rectangle rgbvar6;
-        public Rectangle rgbvar7;
-        public Rectangle hsvvar1;
-        public Rectangle hsvvar2;
-        public Rectangle hsvvar3;
-        public Rectangle hsvvar4;
-        public Rectangle hsvvar5;
-        public Rectangle hsvvar6;
-        public Rectangle hsvvar7;
-        public Rectangle hsvvar8;
-        public Rectangle hsvvar9;
-        public Swatch swatch1;
-        public Swatch swatch2;
-        public Swatch swatch3;
-        public Swatch swatch4;
-        public Swatch swatch5;
-        public Swatch swatch6;
-
-        private void InitializeNames()
-        {
-            algorithm = this.FindControl<DropDown>("algorithm");
-            sliderR = this.FindControl<Slider>("sliderR");
-            sliderG = this.FindControl<Slider>("sliderG");
-            sliderB = this.FindControl<Slider>("sliderB");
-            sliderH = this.FindControl<Slider>("sliderH");
-            sliderS = this.FindControl<Slider>("sliderS");
-            sliderV = this.FindControl<Slider>("sliderV");
-            rgbvar1 = this.FindControl<Rectangle>("rgbvar1");
-            rgbvar2 = this.FindControl<Rectangle>("rgbvar2");
-            rgbvar3 = this.FindControl<Rectangle>("rgbvar3");
-            rgbvar4 = this.FindControl<Rectangle>("rgbvar4");
-            rgbvar5 = this.FindControl<Rectangle>("rgbvar5");
-            rgbvar6 = this.FindControl<Rectangle>("rgbvar6");
-            rgbvar7 = this.FindControl<Rectangle>("rgbvar7");
-            hsvvar1 = this.FindControl<Rectangle>("hsvvar1");
-            hsvvar2 = this.FindControl<Rectangle>("hsvvar2");
-            hsvvar3 = this.FindControl<Rectangle>("hsvvar3");
-            hsvvar4 = this.FindControl<Rectangle>("hsvvar4");
-            hsvvar5 = this.FindControl<Rectangle>("hsvvar5");
-            hsvvar6 = this.FindControl<Rectangle>("hsvvar6");
-            hsvvar7 = this.FindControl<Rectangle>("hsvvar7");
-            hsvvar8 = this.FindControl<Rectangle>("hsvvar8");
-            hsvvar9 = this.FindControl<Rectangle>("hsvvar9");
-            swatch1 = this.FindControl<Swatch>("swatch1");
-            swatch2 = this.FindControl<Swatch>("swatch2");
-            swatch3 = this.FindControl<Swatch>("swatch3");
-            swatch4 = this.FindControl<Swatch>("swatch4");
-            swatch5 = this.FindControl<Swatch>("swatch5");
-            swatch6 = this.FindControl<Swatch>("swatch6");
         }
     }
 }
