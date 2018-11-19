@@ -1,8 +1,6 @@
 # ColorBlender
 
 [![Build status](https://ci.appveyor.com/api/projects/status/79btr6li6w4blngf/branch/master?svg=true)](https://ci.appveyor.com/project/wieslawsoltes/colorblender/branch/master)
-[![Build Status](https://travis-ci.org/wieslawsoltes/ColorBlender.svg?branch=master)](https://travis-ci.org/wieslawsoltes/ColorBlender)
-[![CircleCI](https://circleci.com/gh/wieslawsoltes/ColorBlender/tree/master.svg?style=svg)](https://circleci.com/gh/wieslawsoltes/ColorBlender/tree/master)
 [![Build Status](https://dev.azure.com/wieslawsoltes/ColorBlender/_apis/build/status/wieslawsoltes.ColorBlender)](https://dev.azure.com/wieslawsoltes/ColorBlender/_build/latest?definitionId=1)
 
 [![NuGet](https://img.shields.io/nuget/v/ColorBlender.svg)](https://www.nuget.org/packages/ColorBlender)
