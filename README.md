@@ -1,92 +1,186 @@
-# ColorBlender
+# PanAndZoom
 
-[![Build status](https://ci.appveyor.com/api/projects/status/79btr6li6w4blngf/branch/master?svg=true)](https://ci.appveyor.com/project/wieslawsoltes/colorblender/branch/master)
-[![Build Status](https://dev.azure.com/wieslawsoltes/ColorBlender/_apis/build/status/wieslawsoltes.ColorBlender)](https://dev.azure.com/wieslawsoltes/ColorBlender/_build/latest?definitionId=1)
+[![Gitter](https://badges.gitter.im/wieslawsoltes/PanAndZoom.svg)](https://gitter.im/wieslawsoltes/PanAndZoom?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-[![NuGet](https://img.shields.io/nuget/v/ColorBlender.svg)](https://www.nuget.org/packages/ColorBlender)
+[![Build status](https://dev.azure.com/wieslawsoltes/GitHub/_apis/build/status/Sources/PanAndZoom)](https://dev.azure.com/wieslawsoltes/GitHub/_build/latest?definitionId=58)
 
-A .NET library for color matching and palette design.
+[![NuGet](https://img.shields.io/nuget/v/Avalonia.Controls.PanAndZoom.svg)](https://www.nuget.org/packages/Avalonia.Controls.PanAndZoom)
+[![NuGet](https://img.shields.io/nuget/dt/Avalonia.Controls.PanAndZoom.svg)](https://www.nuget.org/packages/Avalonia.Controls.PanAndZoom)
+[![MyGet](https://img.shields.io/myget/panandzoom-nightly/vpre/Avalonia.Controls.PanAndZoom.svg?label=myget)](https://www.myget.org/gallery/panandzoom-nightly) 
 
-## About
+PanAndZoom control for Avalonia
 
-ColorBlender is a .NET library for color matching and palette design.
-
-ColorBlender .NET version is based on sources from: http://www.colorblender.com/
-
-The old version of ColorBlender can be found here: http://www.colormatch5k.com/
-The new version of ColorBlender can be found here: http://www.colorexplorer.com/colormatch.aspx
-
-## Algorithms
-
-Color matching algorithms:
-* classic - ColorMatch 5K Classic
-* colorexplorer - ColorExplorer - "Sweet Spot Offset"
-* singlehue - Single Hue
-* complementary - Complementary
-* splitcomplementary - Split-Complementary
-* analogue - Analogue
-* triadic - Triadic
-* square - Square
-
-All work is done in HSV color space, because all
-calculations are based on hue, saturation and value of the working color.
-
-The hue spectrum is divided into sections, are the matching colors are
-calculated differently depending on the hue of the color.
+<a href='https://youtu.be/BFLF1WPZWCQ' target='_blank'>![](images/PanAndZoom.png)<a/>
 
 ## NuGet
 
-ColorBlender is delivered as a NuGet package.
+PanAndZoom is delivered as a NuGet package.
 
-You can find the package [here](https://www.nuget.org/packages/ColorBlender/).
+You can find the NuGet packages here for [Avalonia](https://www.nuget.org/packages/Avalonia.Controls.PanAndZoom/) or by using nightly build feed:
+* Add `https://www.myget.org/F/panandzoom-nightly/api/v2` to your package sources
+* Alternative nightly build feed `https://pkgs.dev.azure.com/wieslawsoltes/GitHub/_packaging/Nightly/nuget/v3/index.json`
+* Update your package using `PanAndZoom` feed
 
-You can install the package like this:
+You can install the package for `Avalonia` based projects like this:
 
-`Install-Package ColorBlender`
+`Install-Package Avalonia.Controls.PanAndZoom -Pre`
 
-## Sample
+### Package Dependencies
 
+* [Avalonia](https://www.nuget.org/packages/Avalonia/)
+
+### Package Sources
+
+* https://api.nuget.org/v3/index.json
+* https://www.myget.org/F/panandzoom-nightly/api/v2
+
+## Resources
+
+* [GitHub source code repository.](https://github.com/wieslawsoltes/PanAndZoom)
+
+## Using PanAndZoom
+
+### Avalonia
+
+`MainWindow.xaml`
+```XAML
+<Window x:Class="AvaloniaDemo.MainWindow"
+        xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:paz="using:Avalonia.Controls.PanAndZoom"
+        WindowStartupLocation="CenterScreen" UseLayoutRounding="True"
+        Title="PanAndZoom" Height="640" Width="640">
+    <Grid RowDefinitions="Auto,12,Auto,12,*,12" ColumnDefinitions="50,*,50">
+        <StackPanel Orientation="Vertical"
+                    HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1">
+            <TextBlock Text="F - Fill"/>
+            <TextBlock Text="U - Uniform"/>
+            <TextBlock Text="R - Reset"/>
+            <TextBlock Text="T - Toggle Stretch Mode"/>
+            <TextBlock Text="Mouse Wheel - Zoom to Point"/>
+            <TextBlock Text="Mouse Left Button Down - Pan"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Center" Grid.Row="2" Grid.Column="1">
+            <TextBlock Text="PanButton:" VerticalAlignment="Center"/>
+            <ComboBox Items="{x:Static paz:ZoomBorder.ButtonNames}"
+                      SelectedItem="{Binding #ZoomBorder.PanButton, Mode=TwoWay}"
+                      Margin="2">
+            </ComboBox>
+            <TextBlock Text="Stretch:" VerticalAlignment="Center"/>
+            <ComboBox Items="{x:Static paz:ZoomBorder.StretchModes}"
+                      SelectedItem="{Binding #ZoomBorder.Stretch, Mode=TwoWay}"
+                      Margin="2">
+            </ComboBox>
+            <TextBlock Text="ZoomSpeed:" VerticalAlignment="Center"/>
+            <TextBox Text="{Binding #ZoomBorder.ZoomSpeed, Mode=TwoWay}"
+                     TextAlignment="Center" Width="50" Margin="2"/>
+            <CheckBox IsChecked="{Binding #ZoomBorder.EnablePan}"
+                      Content="EnablePan" VerticalAlignment="Center"/>
+            <CheckBox IsChecked="{Binding #ZoomBorder.EnableZoom}"
+                      Content="EnableZoom" VerticalAlignment="Center"/>
+        </StackPanel>
+        <ScrollViewer Grid.Row="4" Grid.Column="1"
+                      VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Auto">
+            <paz:ZoomBorder Name="ZoomBorder" Stretch="None" ZoomSpeed="1.2"
+                            Background="SlateBlue" ClipToBounds="True" Focusable="True"
+                            VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <Canvas Background="LightGray" Width="300" Height="300">
+                    <Rectangle Canvas.Left="100" Canvas.Top="100" Width="50" Height="50" Fill="Red"/>
+                    <StackPanel Canvas.Left="100" Canvas.Top="200">
+                        <TextBlock Text="Text1" Width="100" Background="Red" Foreground="WhiteSmoke"/>
+                        <TextBlock Text="Text2" Width="100" Background="Red" Foreground="WhiteSmoke"/>
+                    </StackPanel>
+                </Canvas>
+            </paz:ZoomBorder>  
+        </ScrollViewer>
+    </Grid> 
+</Window>
+```
+
+`MainWindow.xaml.cs`
 ```C#
-using System;
-using ColorBlender;
-using ColorBlender.Colors;
-using ColorBlender.Algorithms;
+using System.Diagnostics;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Controls.PanAndZoom;
+using Avalonia.Input;
+using Avalonia.Markup.Xaml;
 
-namespace ColorBlenderConsole
+namespace AvaloniaDemo
 {
-    class Program
+    public class MainWindow : Window
     {
-        static void Main(string[] args)
+        private readonly ZoomBorder? _zoomBorder;
+
+        public MainWindow()
         {
-            Console.WriteLine("Classic");
-            Match(new Classic(), new HSV(213, 46, 49));
-            Console.WriteLine("ColorExplorer");
-            Match(new ColorExplorer(), new HSV(213, 46, 49));
-            Console.ReadKey();
+            this.InitializeComponent();
+            this.AttachDevTools();
+
+            _zoomBorder = this.Find<ZoomBorder>("ZoomBorder");
+            if (_zoomBorder != null)
+            {
+                _zoomBorder.KeyDown += ZoomBorder_KeyDown;
+                
+                _zoomBorder.ZoomChanged += ZoomBorder_ZoomChanged;
+            }
         }
 
-        private static void Match(IAlgorithm algorithm, HSV hsv)
+        private void InitializeComponent()
         {
-            var blend = algorithm.Match(hsv);
-            foreach (var color in blend.Colors)
+            AvaloniaXamlLoader.Load(this);
+        }
+
+        private void ZoomBorder_KeyDown(object? sender, KeyEventArgs e)
+        {
+            switch (e.Key)
             {
-                var rgb = color.ToRGB();
-                var html = string.Format(
-                    "#{0:X2}{1:X2}{2:X2}",
-                    (byte)rgb.R, (byte)rgb.G, (byte)rgb.B);
-                Console.WriteLine(html);
+                case Key.F:
+                    _zoomBorder?.Fill();
+                    break;
+                case Key.U:
+                    _zoomBorder?.Uniform();
+                    break;
+                case Key.R:
+                    _zoomBorder?.ResetMatrix();
+                    break;
+                case Key.T:
+                    _zoomBorder?.ToggleStretchMode();
+                    _zoomBorder?.AutoFit();
+                    break;
             }
+        }
+
+        private void ZoomBorder_ZoomChanged(object sender, ZoomChangedEventArgs e)
+        {
+            Debug.WriteLine($"[ZoomChanged] {e.ZoomX} {e.ZoomY} {e.OffsetX} {e.OffsetY}");
         }
     }
 }
 ```
 
-## Screenshots
+### Getting zoom ratio
 
-![](images/avalonia.png)
+To get current zoom ratio use `ZoomX` and `ZoomY` properties. 
 
-![](images/wpf.png)
+### Getting pan offset
+
+To get current pan offset use `OffsetX` and `OffsetY` properties. 
+
+### Constrain zoom ratio
+
+To constrain zoom ratio use `MinZoomX`, `MaxZoomX`, `MinZoomY` and `MaxZoomY` properties. 
+
+### Constrain pan offset
+
+To constrain pan offset use `MinOffsetX`, `MaxOffsetX`, `MinOffsetY` and `MaxOffsetY` properties. 
+
+### Enable or disable constrains
+
+To enable or disable constrains use `EnableConstrains` flag.
 
 ## License
 
-ColorBlender is licensed under the [MIT license](LICENSE.TXT).
+PanAndZoom is licensed under the [MIT license](LICENSE.TXT).

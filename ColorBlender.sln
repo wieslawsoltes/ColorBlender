@@ -11,27 +11,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{9B03B35A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ColorBlender", "src\ColorBlender\ColorBlender.csproj", "{B52C44BA-D099-42E8-94A7-5234E08480FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColorBlenderWPF", "samples\ColorBlenderWPF\ColorBlenderWPF.csproj", "{F42E593E-39A3-4C44-A909-1AE1FEBAFA37}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ColorBlenderAvalonia", "samples\ColorBlenderAvalonia\ColorBlenderAvalonia.csproj", "{D6EC3C00-F0B9-4531-9563-3487B7ED3512}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ColorBlender.UnitTests", "tests\ColorBlender.UnitTests\ColorBlender.UnitTests.csproj", "{81B01D79-7142-4C77-84FC-26FAACC0D308}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Avalonia.Controls.ColorBlender", "src\Avalonia.Controls.ColorBlender\Avalonia.Controls.ColorBlender.csproj", "{7EF0D71E-080B-489D-A56B-1C219386EE0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF.Controls.ColorBlender", "src\WPF.Controls.ColorBlender\WPF.Controls.ColorBlender.csproj", "{F01508BB-C309-48EC-B7BC-E8F05A1C2885}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{C912A930-AFF7-441F-ACDE-66F073A8BA9D}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
-		_config.yml = _config.yml
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ci", "ci", "{638657F5-4F59-4781-8A7E-295F82D6C905}"
-	ProjectSection(SolutionItems) = preProject
-		_config.yml = _config.yml
-		appveyor.yml = appveyor.yml
-		azure-pipelines.yml = azure-pipelines.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "git", "git", "{53EC0C5C-8300-4040-A8AC-F6A4B1A55529}"
@@ -49,9 +37,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "props", "props", "{F71DD6BF
 	ProjectSection(SolutionItems) = preProject
 		build\Avalonia.Desktop.props = build\Avalonia.Desktop.props
 		build\Avalonia.props = build\Avalonia.props
-		build\NETCore.props = build\NETCore.props
-		build\NetFX.props = build\NetFX.props
-		build\Rx.props = build\Rx.props
 		build\XUnit.props = build\XUnit.props
 	EndProjectSection
 EndProject
@@ -75,10 +60,6 @@ Global
 		{B52C44BA-D099-42E8-94A7-5234E08480FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B52C44BA-D099-42E8-94A7-5234E08480FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B52C44BA-D099-42E8-94A7-5234E08480FD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F42E593E-39A3-4C44-A909-1AE1FEBAFA37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F42E593E-39A3-4C44-A909-1AE1FEBAFA37}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F42E593E-39A3-4C44-A909-1AE1FEBAFA37}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F42E593E-39A3-4C44-A909-1AE1FEBAFA37}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D6EC3C00-F0B9-4531-9563-3487B7ED3512}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D6EC3C00-F0B9-4531-9563-3487B7ED3512}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6EC3C00-F0B9-4531-9563-3487B7ED3512}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -91,10 +72,6 @@ Global
 		{7EF0D71E-080B-489D-A56B-1C219386EE0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7EF0D71E-080B-489D-A56B-1C219386EE0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7EF0D71E-080B-489D-A56B-1C219386EE0A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F01508BB-C309-48EC-B7BC-E8F05A1C2885}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F01508BB-C309-48EC-B7BC-E8F05A1C2885}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F01508BB-C309-48EC-B7BC-E8F05A1C2885}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F01508BB-C309-48EC-B7BC-E8F05A1C2885}.Release|Any CPU.Build.0 = Release|Any CPU
 		{225BA82D-B228-44D0-B8BA-2C5462394F2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{225BA82D-B228-44D0-B8BA-2C5462394F2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{225BA82D-B228-44D0-B8BA-2C5462394F2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -109,12 +86,9 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{B52C44BA-D099-42E8-94A7-5234E08480FD} = {BE9A54A0-F80F-43A7-90F4-98A147169F9B}
-		{F42E593E-39A3-4C44-A909-1AE1FEBAFA37} = {D57E2975-0E47-4153-B3ED-3C4D0252EB22}
 		{D6EC3C00-F0B9-4531-9563-3487B7ED3512} = {D57E2975-0E47-4153-B3ED-3C4D0252EB22}
 		{81B01D79-7142-4C77-84FC-26FAACC0D308} = {9B03B35A-F57E-4BCB-9990-36FB6D1E8787}
 		{7EF0D71E-080B-489D-A56B-1C219386EE0A} = {BE9A54A0-F80F-43A7-90F4-98A147169F9B}
-		{F01508BB-C309-48EC-B7BC-E8F05A1C2885} = {BE9A54A0-F80F-43A7-90F4-98A147169F9B}
-		{638657F5-4F59-4781-8A7E-295F82D6C905} = {C912A930-AFF7-441F-ACDE-66F073A8BA9D}
 		{53EC0C5C-8300-4040-A8AC-F6A4B1A55529} = {C912A930-AFF7-441F-ACDE-66F073A8BA9D}
 		{6F4F7170-82A1-4C01-A681-7F12ACE72652} = {C912A930-AFF7-441F-ACDE-66F073A8BA9D}
 		{F71DD6BF-C572-4222-82E2-0F0C68F8AA90} = {C912A930-AFF7-441F-ACDE-66F073A8BA9D}
