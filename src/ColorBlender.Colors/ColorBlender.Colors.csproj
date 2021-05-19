@@ -16,4 +16,6 @@
     <PackageTags>color;colors;hsv;rgb</PackageTags>
   </PropertyGroup>
 
+  <Import Project="$(MSBuildThisFileDirectory)..\..\build\ReferenceAssemblies.props" />
+
 </Project>
