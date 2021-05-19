@@ -16,6 +16,8 @@
     <PackageTags>color;colorblender;palette;design;colors;hsv;rgb</PackageTags>
   </PropertyGroup>
 
+  <Import Project="$(MSBuildThisFileDirectory)..\..\build\ReferenceAssemblies.props" />
+
   <ItemGroup>
     <ProjectReference Include="..\ColorBlender.Colors\ColorBlender.Colors.csproj" />
   </ItemGroup>
