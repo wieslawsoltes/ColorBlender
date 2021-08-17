@@ -12,7 +12,7 @@ namespace Avalonia.Controls.ColorBlender
 {
     public partial class ColorBlender : UserControl
     {
-        public DropDown algorithm;
+        public ComboBox algorithm;
         public Slider sliderR;
         public Slider sliderG;
         public Slider sliderB;
@@ -47,7 +47,7 @@ namespace Avalonia.Controls.ColorBlender
         {
             this.InitializeComponent();
 
-            algorithm = this.FindControl<DropDown>("algorithm");
+            algorithm = this.FindControl<ComboBox>("algorithm");
             sliderR = this.FindControl<Slider>("sliderR");
             sliderG = this.FindControl<Slider>("sliderG");
             sliderB = this.FindControl<Slider>("sliderB");

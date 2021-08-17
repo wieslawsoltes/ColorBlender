@@ -25,9 +25,4 @@
     <ProjectReference Include="..\ColorBlender\ColorBlender.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="Swatch.axaml.cs">
-      <DependentUpon>%(Filename)</DependentUpon>
-    </Compile>
-  </ItemGroup>
 </Project>
