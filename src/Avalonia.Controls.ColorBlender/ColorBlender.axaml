@@ -2,6 +2,11 @@
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Avalonia.Controls.ColorBlender;assembly=Avalonia.Controls.ColorBlender">
+  <UserControl.Resources>
+    <Thickness x:Key="SliderTopHeaderMargin">0,0,0,4</Thickness>
+    <GridLength x:Key="SliderPreContentMargin">0</GridLength>
+    <GridLength x:Key="SliderPostContentMargin">0</GridLength>
+  </UserControl.Resources>
   <Grid Name="layout" RowDefinitions="Auto,*,Auto,Auto,Auto" Margin="5">
         <Grid ColumnDefinitions="*,*,*,*,*,*" Grid.Column="0" Grid.Row="0">
             <TextBlock Text="algorithm:" Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="2" Margin="5,2,5,2" HorizontalAlignment="Right" VerticalAlignment="Center" />
