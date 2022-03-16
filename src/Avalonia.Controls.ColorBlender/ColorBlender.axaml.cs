@@ -129,8 +129,7 @@ namespace Avalonia.Controls.ColorBlender
 
         private void UpdateVariations()
         {
-            var vm = DataContext as ColorMatch;
-            if (vm != null)
+            if (DataContext is ColorMatch vm)
             {
                 rgbvar1.Fill = vm.VariationsRGB[0].ToSolidColorBrush();
                 rgbvar2.Fill = vm.VariationsRGB[1].ToSolidColorBrush();
@@ -154,8 +153,7 @@ namespace Avalonia.Controls.ColorBlender
 
         private void UpdateSwatches()
         {
-            var vm = DataContext as ColorMatch;
-            if (vm != null)
+            if (DataContext is ColorMatch vm)
             {
                 swatch1.col.Fill = vm.CurrentBlend.Colors[0].ToSolidColorBrush();
                 swatch2.col.Fill = vm.CurrentBlend.Colors[1].ToSolidColorBrush();
@@ -170,8 +168,7 @@ namespace Avalonia.Controls.ColorBlender
         {
             _updatingSliders = true;
 
-            var vm = DataContext as ColorMatch;
-            if (vm != null)
+            if (DataContext is ColorMatch vm)
             {
                 sliderR.Value = vm.CurrentRGB.R;
                 sliderG.Value = vm.CurrentRGB.G;
@@ -185,8 +182,7 @@ namespace Avalonia.Controls.ColorBlender
         {
             _updatingSliders = true;
 
-            var vm = DataContext as ColorMatch;
-            if (vm != null)
+            if (DataContext is ColorMatch vm)
             {
                 sliderH.Value = vm.CurrentHSV.H;
                 sliderS.Value = vm.CurrentHSV.S;
@@ -198,8 +194,7 @@ namespace Avalonia.Controls.ColorBlender
 
         private void Algorithm_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var vm = DataContext as ColorMatch;
-            if (vm != null)
+            if (DataContext is ColorMatch vm)
             {
                 vm.Update();
             }
@@ -231,8 +226,7 @@ namespace Avalonia.Controls.ColorBlender
 
         private void HandleRectangleClick(SolidColorBrush b)
         {
-            var vm = DataContext as ColorMatch;
-            if (vm != null)
+            if (DataContext is ColorMatch vm)
             {
                 vm.CurrentRGB = b.Color.ToRGB();
                 vm.CurrentHSV = vm.CurrentRGB.ToHSV();
@@ -248,8 +242,7 @@ namespace Avalonia.Controls.ColorBlender
 
         private void HandleSliderValueChangedRGB()
         {
-            var vm = DataContext as ColorMatch;
-            if (vm != null)
+            if (DataContext is ColorMatch vm)
             {
                 vm.CurrentRGB = new RGB(sliderR.Value, sliderG.Value, sliderB.Value);
                 vm.CurrentHSV = vm.CurrentRGB.ToHSV();
@@ -265,8 +258,7 @@ namespace Avalonia.Controls.ColorBlender
 
         private void HandleSliderValueChangedHSV()
         {
-            var vm = DataContext as ColorMatch;
-            if (vm != null)
+            if (DataContext is ColorMatch vm)
             {
                 vm.CurrentHSV = new HSV(sliderH.Value, sliderS.Value, sliderV.Value);
                 vm.CurrentRGB = vm.CurrentHSV.ToRGB();
