@@ -22,6 +22,8 @@ namespace ColorBlenderAvalonia
         public override void Initialize()
         {
             AvaloniaXamlLoader.Load(this);
+
+            Name = "ColorBlender .NET";
         }
 
         public override void OnFrameworkInitializationCompleted()
