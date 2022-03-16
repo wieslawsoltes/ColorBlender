@@ -30,7 +30,10 @@ namespace ColorBlenderAvalonia
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                desktop.MainWindow = new MainWindow();
+                desktop.MainWindow = new MainWindow()
+                {
+                    DataContext = new ColorMatch(213, 46, 49)
+                };
             }
 
             base.OnFrameworkInitializationCompleted();
