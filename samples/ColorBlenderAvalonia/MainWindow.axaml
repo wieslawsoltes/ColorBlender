@@ -1,6 +1,4 @@
-﻿<!-- Copyright (c) Wiesław Šoltés. All rights reserved. -->
-<!-- Licensed under the MIT license. See LICENSE file in the project root for full license information. -->
-<Window x:Class="ColorBlenderAvalonia.MainWindow"
+﻿<Window x:Class="ColorBlenderAvalonia.MainWindow"
         xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:ColorBlenderAvalonia;assembly=ColorBlenderAvalonia"
@@ -9,33 +7,33 @@
         Width="800" Height="480" Background="White" UseLayoutRounding="True"
         Design.DataContext="{x:Static local:App.Design}"
         Design.Width="800" Design.Height="480">
-    <Window.Styles>
-        <Style Selector="Button">
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="2"/>
-        </Style>
-        <Style Selector="TextBox">
-            <Setter Property="VerticalAlignment" Value="Stretch"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="2"/>
-        </Style>
-        <Style Selector="ComboBox">
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            <Setter Property="VerticalAlignment" Value="Stretch"/>
-            <Setter Property="Margin" Value="2"/>
-        </Style>
-        <Style Selector="CheckBox">
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            <Setter Property="VerticalAlignment" Value="Stretch"/>
-            <Setter Property="Margin" Value="2"/>
-        </Style>
-        <Style Selector="ListBox">
-            <Setter Property="Margin" Value="2"/>
-        </Style>
-        <Style Selector="ListBoxItem">
-            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-        </Style>
-    </Window.Styles>
-    <cb:ColorBlender/>
+  <Window.Styles>
+    <Style Selector="Button">
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+      <Setter Property="HorizontalContentAlignment" Value="Center" />
+      <Setter Property="Margin" Value="2" />
+    </Style>
+    <Style Selector="TextBox">
+      <Setter Property="VerticalAlignment" Value="Stretch" />
+      <Setter Property="VerticalContentAlignment" Value="Center" />
+      <Setter Property="Margin" Value="2" />
+    </Style>
+    <Style Selector="ComboBox">
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+      <Setter Property="VerticalAlignment" Value="Stretch" />
+      <Setter Property="Margin" Value="2" />
+    </Style>
+    <Style Selector="CheckBox">
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+      <Setter Property="VerticalAlignment" Value="Stretch" />
+      <Setter Property="Margin" Value="2" />
+    </Style>
+    <Style Selector="ListBox">
+      <Setter Property="Margin" Value="2" />
+    </Style>
+    <Style Selector="ListBoxItem">
+      <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    </Style>
+  </Window.Styles>
+  <cb:ColorBlender />
 </Window>
