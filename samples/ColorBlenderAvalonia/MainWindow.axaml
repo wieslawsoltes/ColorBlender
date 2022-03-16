@@ -17,7 +17,9 @@
     <Style Selector="TextBox">
       <Setter Property="VerticalAlignment" Value="Stretch" />
       <Setter Property="VerticalContentAlignment" Value="Center" />
-      <Setter Property="Margin" Value="2" />
+      <Setter Property="Padding" Value="0" />
+      <Setter Property="Margin" Value="0" />
+      <Setter Property="BorderBrush" Value="Transparent" />
     </Style>
     <Style Selector="ComboBox">
       <Setter Property="HorizontalAlignment" Value="Stretch" />
