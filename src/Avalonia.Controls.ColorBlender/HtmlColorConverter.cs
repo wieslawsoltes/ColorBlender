@@ -7,11 +7,11 @@ namespace Avalonia.Controls.ColorBlender
 {
     public class HtmlColorConverter : IMultiValueConverter
     {
-        public static HtmlColorConverter Instance = new HtmlColorConverter();
+        public static readonly HtmlColorConverter Instance = new HtmlColorConverter();
 
         public object Convert(IList<object> values, Type targetType, object parameter, CultureInfo culture)
         {
-            return $"#{((byte)values[0]).ToString("X2")}{((byte)values[1]).ToString("X2")}{((byte)values[2]).ToString("X2")}";
+            return $"#{((byte)values[0]):X2}{((byte)values[1]):X2}{((byte)values[2]):X2}";
         }
     }
 }

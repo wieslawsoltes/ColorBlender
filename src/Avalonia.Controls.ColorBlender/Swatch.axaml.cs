@@ -3,15 +3,15 @@ using Avalonia.Markup.Xaml;
 
 namespace Avalonia.Controls.ColorBlender
 {
-    public partial class Swatch : UserControl
+    public class Swatch : UserControl
     {
-        public Rectangle col;
+        internal readonly Rectangle _col;
 
         public Swatch()
         {
             this.InitializeComponent();
 
-            col = this.FindControl<Rectangle>("col");
+            _col = this.FindControl<Rectangle>("col");
         }
 
         private void InitializeComponent()
