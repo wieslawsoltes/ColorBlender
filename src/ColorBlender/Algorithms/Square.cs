@@ -4,6 +4,8 @@ namespace ColorBlender.Algorithms
 {
     public class Square : IAlgorithm
     {
+        public override string ToString() => "Square";
+
         public Blend Match(HSV hsv)
         {
             Blend outp = new Blend();

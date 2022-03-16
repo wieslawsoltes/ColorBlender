@@ -4,6 +4,8 @@ namespace ColorBlender.Algorithms
 {
     public class Triadic : IAlgorithm
     {
+        public override string ToString() => "Triadic";
+
         public Blend Match(HSV hsv)
         {
             Blend outp = new Blend();

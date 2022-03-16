@@ -4,6 +4,8 @@ namespace ColorBlender.Algorithms
 {
     public class SingleHue : IAlgorithm
     {
+        public override string ToString() => "Single Hue";
+
         public Blend Match(HSV hsv)
         {
             Blend outp = new Blend();

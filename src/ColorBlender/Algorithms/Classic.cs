@@ -4,6 +4,8 @@ namespace ColorBlender.Algorithms
 {
     public class Classic : IAlgorithm
     {
+        public override string ToString() => "Classic";
+
         public Blend Match(HSV hsv)
         {
             Blend outp = new Blend();

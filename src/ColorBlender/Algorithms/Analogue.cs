@@ -5,6 +5,8 @@ namespace ColorBlender.Algorithms
 {
     public class Analogue : IAlgorithm
     {
+        public override string ToString() => "Analogue";
+
         public Blend Match(HSV hsv)
         {
             Blend outp = new Blend();

@@ -5,6 +5,8 @@ namespace ColorBlender.Algorithms
 {
     public class Complementary : IAlgorithm
     {
+        public override string ToString() => "Complementary";
+
         public Blend Match(HSV hsv)
         {
             Blend outp = new Blend();

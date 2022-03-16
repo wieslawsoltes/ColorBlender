@@ -5,6 +5,8 @@ namespace ColorBlender.Algorithms
 {
     public class ColorExplorer : IAlgorithm
     {
+        public override string ToString() => "ColorExplorer";
+
         public Blend Match(HSV hsv)
         {
             Blend outp = new Blend();

@@ -4,6 +4,8 @@ namespace ColorBlender.Algorithms
 {
     public class SplitComplementary : IAlgorithm
     {
+        public override string ToString() => "Split Complementary";
+
         public Blend Match(HSV hsv)
         {
             Blend outp = new Blend();
