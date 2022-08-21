@@ -40,6 +40,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "props", "props", "{F71DD6BF
 		build\XUnit.props = build\XUnit.props
 		build\ReferenceAssemblies.props = build\ReferenceAssemblies.props
 		build\Avalonia.Diagnostics.props = build\Avalonia.Diagnostics.props
+		build\Avalonia.Themes.Fluent.props = build\Avalonia.Themes.Fluent.props
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{863AFEF2-1CF9-4110-A5BA-CD4AF02E114B}"

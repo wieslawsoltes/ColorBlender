@@ -7,7 +7,8 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>0.3.0</Version>
+    <VersionPrefix>11.0.0</VersionPrefix>
+    <VersionSuffix>preview1</VersionSuffix>
     <Authors>Wiesław Šoltés</Authors>
     <Company>Wiesław Šoltés</Company>
     <Description>An avalonia control for color matching and palette design.</Description>
